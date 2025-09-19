@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand-blue: #2563eb;   /* Tailwind blue-600 */
+  --brand-yellow: #facc15; /* Tailwind yellow-400 */
 }
 
 @theme inline {
