@@ -13,7 +13,7 @@ export default function Home() {
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
               WeShare
-              <span className="block text-blue-700">Share the ride, skip the traffic</span>
+              <span className="block text-blue-700 slogan-font">Share the ride, skip the traffic</span>
             </h1>
             <p className="text-lg text-neutral-700">
               WeShare connects commuters in Los Angeles to share rides, reduce costs,
