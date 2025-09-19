@@ -11,10 +11,9 @@ export default function Home() {
             <span className="inline-block text-sm font-semibold tracking-wide text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
               Los Angeles Ride Sharing
             </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-              WeShare
-              <span className="block text-blue-700">Share the ride, skip the traffic</span>
-            </h1>
+            <span className="block text-blue-700 slogan-font tracking-tight">
+              Share the ride, skip the traffic
+            </span>
             <p className="text-lg text-neutral-700">
               WeShare connects commuters in Los Angeles to share rides, reduce costs,
               and beat congestion. Match rides in minutes and get to where you’re going
