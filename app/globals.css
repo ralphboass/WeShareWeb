@@ -29,6 +29,4 @@ body {
 
 .slogan-font {
   font-family: var(--font-plus-jakarta), var(--font-geist-sans), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.01em;
 }
