@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://your-domain.com"; // TODO: update once deployed (e.g., Vercel URL)
+
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "WeShare – Share the ride, skip the traffic",
@@ -56,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${plusJakarta.variable} antialiased`}>
         {children}
       </body>
     </html>
