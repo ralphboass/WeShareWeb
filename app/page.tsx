@@ -17,7 +17,7 @@ export default function Home() {
             </h1>
             <p className="text-lg text-neutral-700">
               WeShare connects commuters in Los Angeles to share rides, reduce costs,
-              and beat congestion. Match rides in minutes and get to where you’re going
+              and beat congestion. Match rides in minutes and get to where you're going
               faster—together.
             </p>
 
@@ -45,13 +45,13 @@ export default function Home() {
           </div>
 
           <div className="relative aspect-[4/3] w-full rounded-xl border border-blue-100 bg-white/60 shadow-sm overflow-hidden">
-            {/* Placeholder “app screenshot” card */}
-            <div className="absolute inset-0 grid place-items-center">
-              <div className="text-center">
-                <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-blue-100" />
-                <p className="text-sm text-neutral-500">App preview coming soon</p>
-              </div>
-            </div>
+            <Image
+              src="/weshare-web1.jpg"
+              alt="WeShare app preview"
+              fill
+              className="object-contain p-4"
+              priority
+            />
           </div>
         </div>
       </section>
