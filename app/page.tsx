@@ -45,14 +45,14 @@ export default function Home() {
           </div>
 
           <div className="relative aspect-[4/3] w-full rounded-xl border border-blue-100 bg-white/60 shadow-sm overflow-hidden">
-            {/* Placeholder “app screenshot” card */}
-            <div className="absolute inset-0 grid place-items-center">
-              <div className="text-center">
-                <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-blue-100" />
-                <p className="text-sm text-neutral-500">App preview coming soon</p>
-              </div>
-            </div>
-          </div>
+           <Image
+             src="/weshare-web1.jpg"
+             alt="WeShare app preview"
+             fill
+             sizes="(min-width: 768px) 50vw, 100vw"
+             className="object-contain p-4"
+             priority
+             />
         </div>
       </section>
 
