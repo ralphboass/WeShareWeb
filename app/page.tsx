@@ -48,7 +48,8 @@ export default function Home() {
            <Image
              src="/weshare-web1.jpg"
              alt="WeShare app preview"
-             fill
+             width={800}
+             height={600}
              sizes="(min-width: 768px) 50vw, 100vw"
              className="object-contain p-4"
              priority
