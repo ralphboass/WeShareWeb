@@ -138,6 +138,9 @@ export default function Home() {
           <p className="text-neutral-600">
             © {new Date().getFullYear()} WeShare. All rights reserved.
           </p>
+          <p className="text-neutral-600">
+            Contact us. 
+          </p>
           <div className="text-sm text-neutral-500">
             Los Angeles, CA
           </div>
