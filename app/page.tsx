@@ -46,7 +46,7 @@ export default function Home() {
 
           <div className="relative aspect-[4/3] w-full rounded-xl border border-blue-100 bg-white/60 shadow-sm overflow-hidden">
             <Image
-              src="/weshare-web1.1.jpg"
+              src="/weshare-web1.1.png"
               alt="WeShare app preview"
               fill
               className="object-contain p-4"
