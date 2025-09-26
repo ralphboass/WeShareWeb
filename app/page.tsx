@@ -139,7 +139,7 @@ export default function Home() {
             © {new Date().getFullYear()} WeShare. All rights reserved.
           </p>
           <p className="text-neutral-600">
-            Contact us. 
+            Contact us
           </p>
           <div className="text-sm text-neutral-500">
             Los Angeles, CA
