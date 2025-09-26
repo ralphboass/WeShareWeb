@@ -9,14 +9,14 @@ export default function Home() {
         <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 items-center">
           <div className="space-y-6">
             <span className="inline-block text-sm font-semibold tracking-wide text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
-              Los Angeles Ride Sharing
+              UCLA Ride Sharing!
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
               WeShare
               <span className="block text-blue-700 slogan-font">Share the ride, skip the traffic</span>
             </h1>
             <p className="text-lg text-neutral-700">
-              WeShare connects commuters in Los Angeles to share rides, reduce costs,
+              WeShare connects UCLA students to share rides, reduce costs,
               and beat congestion. Match rides in minutes and get to where you're going
               faster—together.
             </p>
