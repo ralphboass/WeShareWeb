@@ -600,6 +600,11 @@
             }
         }
         
+        /* Purple color for WeShare header */
+        .purple-text {
+            color: #8b5cf6;
+        }
+        
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
@@ -616,7 +621,7 @@
                         UCLA Ride Sharing!
                     </span>
                     <div class="hero-header">
-                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"><span class="text-purple-600">We</span><span class="text-black">Share</span></h2>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"><span class="purple-text">We</span><span class="text-black">Share</span></h2>
                         <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
                             Share the ride,<br>
                             <span class="text-blue-600">skip the traffic</span>
@@ -739,6 +744,11 @@
     <script>
         // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Prevent automatic scrolling on page load
+        if (window.location.hash) {
+            history.replaceState(null, null, ' ');
+        }
     </script>
 </body>
 </html>
