@@ -8,6 +8,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Ride } from '@/types';
 import { MapPin, Calendar, Users, DollarSign, Clock, ArrowLeft, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
+import ChatModal from '@/components/ChatModal';
+import BookingModal from '@/components/BookingModal';
 
 export default function RideDetailPage() {
   const params = useParams();
@@ -16,6 +18,8 @@ export default function RideDetailPage() {
   const [ride, setRide] = useState<Ride | null>(null);
   const [loading, setLoading] = useState(true);
   const [seatsToBook, setSeatsToBook] = useState(1);
+  const [showChat, setShowChat] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
 
   useEffect(() => {
     const fetchRide = async () => {
@@ -46,7 +50,7 @@ export default function RideDetailPage() {
       router.push(`/login?redirect=/rides/${params.id}`);
       return;
     }
-    alert('Booking functionality requires Stripe integration. This would redirect to payment.');
+    setShowBookingModal(true);
   };
 
   const formatDate = (date: Date) => {
@@ -175,9 +179,12 @@ export default function RideDetailPage() {
                 <div className="text-sm text-neutral-600">UCLA Student</div>
               </div>
               {user && user.id !== ride.riderId && (
-                <button className="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-100 transition">
+                <button 
+                  onClick={() => setShowChat(true)}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
                   <MessageCircle className="w-4 h-4" />
-                  Message
+                  Message Driver
                 </button>
               )}
             </div>
@@ -236,6 +243,21 @@ export default function RideDetailPage() {
           )}
         </div>
       </div>
+
+      {/* Chat Modal */}
+      {showChat && ride && user && (
+        <ChatModal
+          rideId={ride.id}
+          otherUserId={ride.riderId}
+          otherUserName={ride.riderName}
+          onClose={() => setShowChat(false)}
+        />
+      )}
+
+      {/* Booking Modal */}
+      {showBookingModal && (
+        <BookingModal onClose={() => setShowBookingModal(false)} />
+      )}
     </div>
   );
 }
