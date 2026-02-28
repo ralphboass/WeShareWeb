@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { collection, query, where, getDocs, Timestamp, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -8,7 +8,7 @@ import { Ride } from '@/types';
 import { MapPin, Calendar, Users, DollarSign, Clock } from 'lucide-react';
 import Link from 'next/link';
 
-export default function RidesPage() {
+function RidesContent() {
   const searchParams = useSearchParams();
   const [rides, setRides] = useState<Ride[]>([]);
   const [loading, setLoading] = useState(true);
@@ -230,5 +230,20 @@ export default function RidesPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function RidesPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-neutral-600">Loading rides...</p>
+        </div>
+      </div>
+    }>
+      <RidesContent />
+    </Suspense>
   );
 }
