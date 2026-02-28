@@ -1,151 +1,207 @@
-// app/page.tsx
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import { Search, MapPin, Calendar, Users, DollarSign } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
+const RideMap = dynamic(() => import('@/components/RideMap'), { ssr: false });
 
 export default function Home() {
+  const [searchParams, setSearchParams] = useState({
+    departure: '',
+    destination: '',
+    date: '',
+    passengers: 1,
+  });
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams({
+      departure: searchParams.departure,
+      destination: searchParams.destination,
+      date: searchParams.date,
+      passengers: searchParams.passengers.toString(),
+    });
+    window.location.href = `/rides?${params.toString()}`;
+  };
+
   return (
-    <div className="min-h-screen bg-white text-neutral-900">
-      {/* Hero */}
-      <section className="px-6 sm:px-10 md:px-16 lg:px-24 pt-20 pb-16 bg-gradient-to-b from-blue-50 to-white">
-        <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 items-center">
-          <div className="space-y-6">
-            <span className="inline-block text-sm font-semibold tracking-wide text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
-              UCLA Ride Sharing!
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      {/* Hero Section with Search */}
+      <section className="px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8">
+            <span className="inline-block text-sm font-semibold tracking-wide text-blue-700 bg-blue-100 px-3 py-1 rounded-full mb-4">
+              UCLA Ride Sharing
             </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-              WeShare
-              <span className="block text-blue-700 slogan-font">Share the ride, skip the traffic</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4">
+              <span className="text-purple-600">We</span>
+              <span className="text-black">Share</span>
+              <span className="block text-blue-600 mt-2">Share the ride, skip the traffic</span>
             </h1>
-            <p className="text-lg text-neutral-700">
-              WeShare connects UCLA students to share rides, reduce costs,
-              and beat congestion. Match rides in minutes and get to where you're going
-              faster—together.
+            <p className="text-lg text-neutral-700 max-w-2xl mx-auto">
+              Find and share rides with UCLA students. Save money, reduce traffic, and travel together.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="#download"
-                className="inline-flex items-center justify-center rounded-md bg-blue-600 text-white px-5 py-3 font-medium shadow hover:bg-blue-700 transition"
-              >
-                Download the App
-              </a>
-              <a
-                href="#features"
-                className="inline-flex items-center justify-center rounded-md border border-blue-200 text-blue-700 px-5 py-3 font-medium hover:bg-blue-50 transition"
-              >
-                See Features
-              </a>
-            </div>
-
-            <div className="flex items-center gap-4 pt-2">
-              <div className="h-2 w-2 rounded-full bg-yellow-400" />
-              <p className="text-sm text-neutral-600">
-                Available soon on iOS and Android
-              </p>
-            </div>
           </div>
 
-          <div className="relative aspect-[4/3] w-full rounded-xl border border-blue-100 bg-white/60 shadow-sm overflow-hidden">
-            <Image
-              src="/weshare-web1.1.png"
-              alt="WeShare app preview"
-              fill
-              className="object-contain p-4"
-              priority
-            />
-          </div>
-        </div>
-      </section>
+          {/* Search and Map Grid */}
+          <div className="grid lg:grid-cols-2 gap-6 mt-12">
+            {/* Search Form */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8 h-fit">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <Search className="w-6 h-6 text-blue-600" />
+                Find a Ride
+              </h2>
+              
+              <form onSubmit={handleSearch} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    <MapPin className="w-4 h-4 inline mr-1" />
+                    From
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Departure location"
+                    value={searchParams.departure}
+                    onChange={(e) => setSearchParams({ ...searchParams, departure: e.target.value })}
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
 
-      {/* Features */}
-      <section id="features" className="px-6 sm:px-10 md:px-16 lg:px-24 py-16">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-8">Built for LA commuters</h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-xl border border-neutral-200 p-6 hover:shadow-sm transition">
-              <div className="mb-3 h-10 w-10 rounded-lg bg-blue-100 grid place-items-center text-blue-700 font-bold">
-                1
-              </div>
-              <h3 className="font-semibold mb-2">Real-time ride matching</h3>
-              <p className="text-neutral-600">
-                Get paired with riders heading your way. Flexible departure times,
-                clear pickup points.
-              </p>
-            </div>
-            <div className="rounded-xl border border-neutral-200 p-6 hover:shadow-sm transition">
-              <div className="mb-3 h-10 w-10 rounded-lg bg-yellow-100 grid place-items-center text-yellow-600 font-bold">
-                2
-              </div>
-              <h3 className="font-semibold mb-2">Save money and time</h3>
-              <p className="text-neutral-600">
-                Split costs, use HOV lanes where applicable, and cut your commute
-                by sharing the ride.
-              </p>
-            </div>
-            <div className="rounded-xl border border-neutral-200 p-6 hover:shadow-sm transition">
-              <div className="mb-3 h-10 w-10 rounded-lg bg-blue-100 grid place-items-center text-blue-700 font-bold">
-                3
-              </div>
-              <h3 className="font-semibold mb-2">Safety and reliability</h3>
-              <p className="text-neutral-600">
-                Ratings, verified profiles, and clear trip details help keep every
-                ride comfortable and predictable.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    <MapPin className="w-4 h-4 inline mr-1" />
+                    To
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Destination"
+                    value={searchParams.destination}
+                    onChange={(e) => setSearchParams({ ...searchParams, destination: e.target.value })}
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
 
-      {/* CTA Download / QR placeholder */}
-      <section
-        id="download"
-        className="px-6 sm:px-10 md:px-16 lg:px-24 py-16 bg-gradient-to-b from-white to-yellow-50"
-      >
-        <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 items-center">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Get WeShare</h2>
-            <p className="text-neutral-700 mb-6">
-              Download the app and start sharing rides across LA. Scan the QR code
-              or use the store links below.
-            </p>
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    <Calendar className="w-4 h-4 inline mr-1" />
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    value={searchParams.date}
+                    onChange={(e) => setSearchParams({ ...searchParams, date: e.target.value })}
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                    min={new Date().toISOString().split('T')[0]}
+                  />
+                </div>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="#"
-                className="inline-flex items-center justify-center rounded-md bg-neutral-900 text-white px-4 py-3 text-sm font-medium hover:bg-neutral-800 transition"
-              >
-                App Store (soon)
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center justify-center rounded-md bg-neutral-900 text-white px-4 py-3 text-sm font-medium hover:bg-neutral-800 transition"
-              >
-                Google Play (soon)
-              </a>
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    <Users className="w-4 h-4 inline mr-1" />
+                    Passengers
+                  </label>
+                  <select
+                    value={searchParams.passengers}
+                    onChange={(e) => setSearchParams({ ...searchParams, passengers: parseInt(e.target.value) })}
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    {[1, 2, 3, 4].map(num => (
+                      <option key={num} value={num}>{num} {num === 1 ? 'passenger' : 'passengers'}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2"
+                >
+                  <Search className="w-5 h-5" />
+                  Search Rides
+                </button>
+
+                <Link
+                  href="/rides"
+                  className="block w-full text-center border-2 border-blue-600 text-blue-600 py-3 px-6 rounded-lg font-semibold hover:bg-blue-50 transition"
+                >
+                  Browse All Rides
+                </Link>
+              </form>
             </div>
-          </div>
 
-          <div className="mx-auto w-full max-w-xs">
-            <div className="aspect-square w-full rounded-2xl border-2 border-dashed border-yellow-400 grid place-items-center bg-white">
-              <span className="text-neutral-500 text-sm">QR code placeholder</span>
+            {/* Map View */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-[500px] lg:h-[600px]">
+              <RideMap />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-6 sm:px-10 md:px-16 lg:px-24 py-10 border-t border-neutral-200">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-neutral-600">
-            © {new Date().getFullYear()} WeShare. All rights reserved.
+      {/* Features Section */}
+      <section className="px-4 sm:px-6 lg:px-8 py-16 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose WeShare?</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <DollarSign className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Save Money</h3>
+              <p className="text-neutral-600">
+                Split gas costs and reduce your commute expenses by sharing rides with fellow students.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-yellow-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Meet People</h3>
+              <p className="text-neutral-600">
+                Connect with other UCLA students and build your campus community while traveling.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Go Anywhere</h3>
+              <p className="text-neutral-600">
+                Find rides to campus, airports, events, and anywhere else you need to go.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-white to-blue-50">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4">Ready to start sharing rides?</h2>
+          <p className="text-lg text-neutral-700 mb-8">
+            Join thousands of UCLA students already saving money and reducing traffic.
           </p>
-          <p className="text-neutral-600">
-            Contact us
-          </p>
-          <div className="text-sm text-neutral-500">
-            Los Angeles, CA
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+            >
+              Sign Up Now
+            </Link>
+            <Link
+              href="/rides"
+              className="inline-flex items-center justify-center px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition"
+            >
+              Browse Rides
+            </Link>
           </div>
         </div>
-      </footer>
+      </section>
     </div>
   );
 }
