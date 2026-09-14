@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", sans-serif;
+
+  /* Brand palette — mirrors the iOS app accent (#007FFF) and the marketing site */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+
+  --color-accent-purple: #8b5cf6;
+  --color-accent-yellow: #facc15;
+
+  --color-ink: #171717;
+  --color-ink-soft: #525252;
+  --color-ink-muted: #737373;
+
+  --radius-card: 0.75rem;
+  --radius-pill: 9999px;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* The app's signature background wash: blue → purple → pink */
+.app-gradient {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(59 130 246 / 0.28),
+    rgb(168 85 247 / 0.18),
+    rgb(236 72 153 / 0.12)
+  );
+}
+
+.hero-gradient {
+  background-image: linear-gradient(to bottom, #eff6ff, #ffffff);
+}
+
+.download-gradient {
+  background-image: linear-gradient(to bottom, #ffffff, #fefce8);
+}
+
+/* "We" wordmark gradient, identical to the SwiftUI logo treatment */
+.wordmark-we {
+  background-image: linear-gradient(to right, #2563eb, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass-field {
+  background-color: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(12px);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #dbeafe;
+  border-radius: 4px;
+}
+
+/* Hide the native time input AM/PM field — the app uses 24h formatting */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0.4;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+}
+
+.status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #22c55e;
+  animation: pulse-dot 2s ease-in-out infinite;
 }
