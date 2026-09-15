@@ -64,7 +64,23 @@ service cloud.firestore {
 
     match /chats/{messageId} {
       allow create: if creatingOwnField('senderId');
-      allow read, update: if isOwnField('senderId') || isOwnField('receiverId') || isAdmin();
+
+      // Fetching a single message stays restricted to its two participants.
+      allow get: if isOwnField('senderId') || isOwnField('receiverId') || isAdmin();
+
+      // Listing has to stay open to any signed-in user for now. Security rules
+      // are not filters: Firestore validates a list query statically, and the
+      // app's conversation loader uses an or(and(...), and(...)) query plus a
+      // legacy `participants.<uid>` map query, neither of which it can prove
+      // satisfies a senderId/receiverId rule — the result is
+      // permission-denied on every chat screen.
+      // Removing this needs a `participants: [uidA, uidB]` array written on
+      // every message (app + web), a backfill of existing documents, and an
+      // app release that queries `participants array-contains uid`. Then this
+      // becomes: allow list: if signedIn() && uid() in resource.data.participants;
+      allow list: if signedIn();
+
+      allow update: if isOwnField('senderId') || isOwnField('receiverId') || isAdmin();
       allow delete: if false;
     }
 
