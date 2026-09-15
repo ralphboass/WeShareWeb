@@ -19,6 +19,7 @@ import { fetchRide } from "@/lib/rides";
 import { fetchBookingsForRide } from "@/lib/bookings";
 import { fetchProfile } from "@/lib/users";
 import { formatRideDate, formatRideTime } from "@/lib/format";
+import { smartDeparture, smartDestination } from "@/lib/smart-location";
 import { formatMoney } from "@/lib/pricing";
 import type { Booking, Ride, UserProfile } from "@/lib/types";
 import { useAuth } from "@/contexts/AuthContext";
@@ -42,12 +43,16 @@ export function RideDetail({ rideId }: { rideId: string }) {
   const [justBooked, setJustBooked] = useState(false);
 
   const load = useCallback(async () => {
-    const found = await fetchRide(rideId);
+    const found = await fetchRide(rideId).catch(() => null);
     setRide(found);
     if (!found) return;
+
+    // Driver profile and passenger list are secondary: a failure in either
+    // (e.g. a signed-out visitor who cannot read profiles) must never keep the
+    // ride itself from rendering.
     const [driverProfile, rideBookings] = await Promise.all([
-      fetchProfile(found.riderId),
-      fetchBookingsForRide(found.id),
+      fetchProfile(found.riderId).catch(() => null),
+      fetchBookingsForRide(found.id).catch(() => []),
     ]);
     setDriver(driverProfile);
     setBookings(rideBookings);
@@ -130,7 +135,9 @@ export function RideDetail({ rideId }: { rideId: string }) {
                 <p className="text-xs font-bold tracking-wider text-ink-muted uppercase">
                   From
                 </p>
-                <p className="text-lg font-bold text-ink">{ride.departure}</p>
+                <p className="text-lg font-bold text-ink">
+                  {smartDeparture(ride)}
+                </p>
                 <p className="text-sm text-ink-muted">{ride.departureAddress}</p>
               </div>
             </div>
@@ -143,7 +150,9 @@ export function RideDetail({ rideId }: { rideId: string }) {
                 <p className="text-xs font-bold tracking-wider text-ink-muted uppercase">
                   To
                 </p>
-                <p className="text-lg font-bold text-ink">{ride.destination}</p>
+                <p className="text-lg font-bold text-ink">
+                  {smartDestination(ride)}
+                </p>
                 <p className="text-sm text-ink-muted">
                   {ride.destinationAddress}
                 </p>

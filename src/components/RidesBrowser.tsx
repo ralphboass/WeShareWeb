@@ -163,7 +163,8 @@ export function RidesBrowser() {
               <h2 className="mb-3 text-xs font-bold tracking-wider text-ink-muted uppercase">
                 {formatDayHeading(group[0].date)}
               </h2>
-              <div className="grid gap-4 md:grid-cols-2">
+              {/* Single column on every breakpoint: rides read as one list. */}
+              <div className="flex flex-col gap-4">
                 {group.map((ride) => (
                   <RideCard key={ride.id} ride={ride} />
                 ))}

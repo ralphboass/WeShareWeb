@@ -57,7 +57,19 @@ service cloud.firestore {
 
     match /bookings/{bookingId} {
       allow create: if creatingOwnField('passengerId');
-      allow read, update: if isOwnField('passengerId') || isOwnField('driverId');
+
+      allow get: if isOwnField('passengerId') || isOwnField('driverId');
+
+      // Both the app and the website list a ride's bookings with a
+      // `rideId ==` query to show the passenger list, which carries no
+      // ownership constraint for rules to verify — restricting this to the
+      // participants makes every ride screen fail with permission-denied.
+      // Tightening it needs the passenger list denormalised onto the ride
+      // document (names and seat counts only), then this can become
+      // participant-only.
+      allow list: if signedIn();
+
+      allow update: if isOwnField('passengerId') || isOwnField('driverId');
       // The app deletes a booking when the driver rejects the request.
       allow delete: if isOwnField('driverId');
     }

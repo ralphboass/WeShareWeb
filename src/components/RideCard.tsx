@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, CalendarDays, Clock, Users } from "lucide-react";
-import { formatRideDate, formatRideTime, shortPlace } from "@/lib/format";
+import { formatRideDate, formatRideTime } from "@/lib/format";
+import { smartDeparture, smartDestination } from "@/lib/smart-location";
 import { formatMoney } from "@/lib/pricing";
 import type { Ride } from "@/lib/types";
 import { Avatar, cx } from "./ui";
@@ -21,13 +22,9 @@ export function RideCard({ ride }: { ride: Ride }) {
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="flex items-center gap-2 text-base font-bold text-ink">
-            <span className="truncate">
-              {shortPlace(ride.departure, ride.departureAddress)}
-            </span>
+            <span className="truncate">{smartDeparture(ride)}</span>
             <ArrowRight className="size-4 shrink-0 text-brand-600 transition group-hover:translate-x-0.5" />
-            <span className="truncate">
-              {shortPlace(ride.destination, ride.destinationAddress)}
-            </span>
+            <span className="truncate">{smartDestination(ride)}</span>
           </div>
           <p className="mt-1 truncate text-xs text-ink-muted">
             {ride.departureAddress} → {ride.destinationAddress}

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   ArrowDown,
   CalendarDays,
+  Check,
   Clock,
   DollarSign,
   MapPin,
@@ -12,6 +13,9 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { createRide } from "@/lib/rides";
+import { parseAddress } from "@/lib/smart-location";
+import { LocationAutocomplete } from "@/components/LocationAutocomplete";
+import type { PlaceSuggestion } from "@/app/api/places/route";
 import { isFirebaseConfigured } from "@/lib/firebase";
 import { driverEarnings, formatMoney, priceBreakdown } from "@/lib/pricing";
 import {
@@ -31,10 +35,14 @@ export default function NewRidePage() {
   const router = useRouter();
   const { firebaseUser, profile, loading } = useAuth();
 
+  // `departure`/`destination` hold the city (what the app stores), the address
+  // is the verified geocoded string, and the query is only what's typed.
   const [departure, setDeparture] = useState("");
   const [departureAddress, setDepartureAddress] = useState("");
+  const [departureQuery, setDepartureQuery] = useState("");
   const [destination, setDestination] = useState("");
   const [destinationAddress, setDestinationAddress] = useState("");
+  const [destinationQuery, setDestinationQuery] = useState("");
   const [date, setDate] = useState(todayInput());
   const [time, setTime] = useState("08:00");
   const [seats, setSeats] = useState(3);
@@ -73,12 +81,10 @@ export default function NewRidePage() {
     event.preventDefault();
     if (!isFirebaseConfigured) return;
 
-    if (!departure.trim() || !destination.trim()) {
-      setError("Add both a pickup and a drop-off name.");
-      return;
-    }
     if (!departureAddress.trim() || !destinationAddress.trim()) {
-      setError("Add the full addresses so passengers know where to meet you.");
+      setError(
+        "Pick both the pickup and drop-off from the suggestions so passengers get a real address.",
+      );
       return;
     }
     if (seatPrice <= 0) {
@@ -139,57 +145,41 @@ export default function NewRidePage() {
         {error && <Alert tone="error">{error}</Alert>}
 
         <Card>
-          <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-ink-muted uppercase">
-            <MapPin className="size-4 text-red-500" />
-            Pickup
-          </div>
-          <div className="mt-3 grid gap-4 sm:grid-cols-2">
-            <Field label="Short name" hint="Shown in search results">
-              <input
-                className={inputClass}
-                placeholder="UCLA"
-                value={departure}
-                onChange={(event) => setDeparture(event.target.value)}
-                required
-              />
-            </Field>
-            <Field label="Full address">
-              <input
-                className={inputClass}
-                placeholder="Westwood Plaza, Los Angeles, CA"
-                value={departureAddress}
-                onChange={(event) => setDepartureAddress(event.target.value)}
-                required
-              />
-            </Field>
-          </div>
+          <PlaceField
+            tone="pickup"
+            label="Pickup"
+            placeholder="Search a place, e.g. UCLA or Hilgard Ave"
+            query={departureQuery}
+            onQueryChange={setDepartureQuery}
+            onPick={(place) => {
+              setDeparture(place.city);
+              setDepartureAddress(place.address);
+            }}
+            address={departureAddress}
+            smartLabel={
+              departureAddress ? parseAddress(departureAddress, departure) : ""
+            }
+          />
 
           <ArrowDown className="my-5 mx-auto size-5 text-brand-600" />
 
-          <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-ink-muted uppercase">
-            <MapPin className="size-4 text-emerald-500" />
-            Drop-off
-          </div>
-          <div className="mt-3 grid gap-4 sm:grid-cols-2">
-            <Field label="Short name">
-              <input
-                className={inputClass}
-                placeholder="LAX"
-                value={destination}
-                onChange={(event) => setDestination(event.target.value)}
-                required
-              />
-            </Field>
-            <Field label="Full address">
-              <input
-                className={inputClass}
-                placeholder="World Way, Los Angeles, CA"
-                value={destinationAddress}
-                onChange={(event) => setDestinationAddress(event.target.value)}
-                required
-              />
-            </Field>
-          </div>
+          <PlaceField
+            tone="dropoff"
+            label="Drop-off"
+            placeholder="Search a place, e.g. LAX or Santa Monica Pier"
+            query={destinationQuery}
+            onQueryChange={setDestinationQuery}
+            onPick={(place) => {
+              setDestination(place.city);
+              setDestinationAddress(place.address);
+            }}
+            address={destinationAddress}
+            smartLabel={
+              destinationAddress
+                ? parseAddress(destinationAddress, destination)
+                : ""
+            }
+          />
         </Card>
 
         <Card>
@@ -302,6 +292,70 @@ export default function NewRidePage() {
           </ButtonLink>
         </div>
       </form>
+    </div>
+  );
+}
+
+/**
+ * One pickup/drop-off block: searches real places and, once chosen, shows the
+ * verified address plus the short label riders will actually see.
+ */
+function PlaceField({
+  tone,
+  label,
+  placeholder,
+  query,
+  onQueryChange,
+  onPick,
+  address,
+  smartLabel,
+}: {
+  tone: "pickup" | "dropoff";
+  label: string;
+  placeholder: string;
+  query: string;
+  onQueryChange: (value: string) => void;
+  onPick: (place: PlaceSuggestion) => void;
+  address: string;
+  smartLabel: string;
+}) {
+  const pin = tone === "pickup" ? "text-red-500" : "text-emerald-500";
+
+  return (
+    <div>
+      <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-ink-muted uppercase">
+        <MapPin className={`size-4 ${pin}`} />
+        {label}
+      </div>
+
+      <div className="mt-3">
+        <LocationAutocomplete
+          value={query}
+          onChange={onQueryChange}
+          onSelect={onPick}
+          placeholder={placeholder}
+          ariaLabel={label}
+          pinClassName={pin}
+          wrapperClassName={`${inputClass} flex items-center gap-2`}
+          inputClassName="w-full min-w-0 bg-transparent text-sm text-ink outline-none placeholder:text-neutral-400"
+        />
+      </div>
+
+      {address ? (
+        <p className="mt-2 flex flex-wrap items-center gap-x-2 text-xs text-ink-muted">
+          <Check className="size-3.5 text-emerald-600" />
+          <span>{address}</span>
+          <span className="text-ink-muted">·</span>
+          <span>
+            shown to riders as{" "}
+            <strong className="font-semibold text-ink">{smartLabel}</strong>
+          </span>
+        </p>
+      ) : (
+        <p className="mt-2 text-xs text-ink-muted">
+          Pick a suggestion to attach a real address.
+        </p>
+      )}
     </div>
   );
 }

@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowRight, CalendarDays, MapPin, Search, Users } from "lucide-react";
+import { ArrowRight, CalendarDays, Search, Users } from "lucide-react";
+import { LocationAutocomplete } from "./LocationAutocomplete";
 import { Button, cx } from "./ui";
 
 /**
@@ -58,27 +59,25 @@ export function RideSearchForm({
       )}
     >
       <div className="grid gap-2 lg:grid-cols-[1fr_1fr_auto_auto_auto]">
-        <div className={cell}>
-          <MapPin className="size-4 shrink-0 text-red-500" />
-          <input
-            className={input}
-            placeholder="Leaving from"
-            value={from}
-            onChange={(event) => setFrom(event.target.value)}
-            aria-label="Leaving from"
-          />
-        </div>
+        <LocationAutocomplete
+          value={from}
+          onChange={setFrom}
+          placeholder="Leaving from"
+          ariaLabel="Leaving from"
+          pinClassName="text-red-500"
+          wrapperClassName={cell}
+          inputClassName={input}
+        />
 
-        <div className={cell}>
-          <MapPin className="size-4 shrink-0 text-emerald-500" />
-          <input
-            className={input}
-            placeholder="Going to"
-            value={to}
-            onChange={(event) => setTo(event.target.value)}
-            aria-label="Going to"
-          />
-        </div>
+        <LocationAutocomplete
+          value={to}
+          onChange={setTo}
+          placeholder="Going to"
+          ariaLabel="Going to"
+          pinClassName="text-emerald-500"
+          wrapperClassName={cell}
+          inputClassName={input}
+        />
 
         <div className={cx(cell, "lg:w-44")}>
           <CalendarDays className="size-4 shrink-0 text-brand-600" />

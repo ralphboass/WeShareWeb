@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import { getDb, isFirebaseConfigured } from "./firebase";
 import { demoRides } from "./demo-data";
+import { smartDeparture, smartDestination } from "./smart-location";
 import type { Ride, RideStatus } from "./types";
 
 const toDate = (value: unknown, fallback = new Date()): Date => {
@@ -121,12 +122,14 @@ export function filterRides(rides: Ride[], filters: RideSearchFilters): Ride[] {
       if (ride.dateTime < now) return false;
       if (seats > 0 && ride.availableSeats < seats) return false;
 
+      // Matches the app: the smart label, the city and the full address are all
+      // searchable, so "UCLA" finds a ride stored as departure "Los Angeles".
       if (from) {
-        const haystack = `${ride.departure} ${ride.departureAddress}`.toLowerCase();
+        const haystack = `${smartDeparture(ride)} ${ride.departure} ${ride.departureAddress}`.toLowerCase();
         if (!haystack.includes(from)) return false;
       }
       if (to) {
-        const haystack = `${ride.destination} ${ride.destinationAddress}`.toLowerCase();
+        const haystack = `${smartDestination(ride)} ${ride.destination} ${ride.destinationAddress}`.toLowerCase();
         if (!haystack.includes(to)) return false;
       }
       if (filters.date) {

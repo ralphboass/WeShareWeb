@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  Apple,
   ArrowRight,
   BadgeCheck,
+  Check,
   CreditCard,
   MessageCircle,
   PiggyBank,
@@ -47,6 +49,13 @@ const steps = [
     title: "Ride together",
     body: "Chat with your driver, meet at the pickup point, and split the cost of the drive.",
   },
+];
+
+const appPerks = [
+  "Secure card payments with Stripe",
+  "Push notifications for booking requests",
+  "Live chat with your driver or passengers",
+  "Wallet, credits and ride history",
 ];
 
 const screenshots = [
@@ -227,46 +236,68 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="download" className="download-gradient py-16">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-bold text-ink sm:text-3xl">
-              Get WeShare on your phone
-            </h2>
-            <p className="mt-3 max-w-lg text-ink-soft">
-              Everything you can do here works in the app too — plus push
-              notifications when a driver accepts your request, live chat, and
-              your wallet. Scan the QR code or grab it from the App Store.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800"
-              >
-                <Smartphone className="size-4" />
-                Download on the App Store
-              </a>
-              <span className="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-ink-muted">
-                Android coming soon
-              </span>
-            </div>
-          </div>
+      <section
+        id="download"
+        className="bg-gradient-to-br from-purple-50 via-brand-50 to-white px-5 py-16"
+      >
+        <div className="mx-auto max-w-6xl">
+          <div className="overflow-hidden rounded-3xl bg-white shadow-2xl shadow-brand-900/10">
+            <div className="grid items-center gap-8 md:grid-cols-2">
+              <div className="p-8 md:p-12">
+                <h2 className="text-3xl font-bold text-ink md:text-4xl">
+                  Get the full experience
+                </h2>
+                <p className="mt-4 text-lg text-ink-soft">
+                  Download the WeShare app to book rides, pay securely and stay
+                  connected on the go.
+                </p>
 
-          <div className="mx-auto w-full max-w-56">
-            <div className="rounded-2xl border-2 border-dashed border-accent-yellow bg-white p-4">
-              <Image
-                src="/QR.png"
-                alt="QR code to download the WeShare app"
-                width={512}
-                height={512}
-                className="w-full"
-              />
+                <ul className="mt-6 space-y-4">
+                  {appPerks.map((perk) => (
+                    <li key={perk} className="flex items-center gap-3">
+                      <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-100">
+                        <Check className="size-5 text-brand-600" strokeWidth={2.5} />
+                      </span>
+                      <span className="text-ink-soft">{perk}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href={APP_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3 font-medium text-white transition hover:bg-neutral-800"
+                  >
+                    <Apple className="size-5" />
+                    App Store
+                  </a>
+                  <span className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-200 px-6 py-3 font-medium text-ink-muted">
+                    <Smartphone className="size-5" />
+                    Google Play — soon
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-center bg-gradient-to-br from-brand-500 to-purple-600 p-8 md:p-12">
+                <div className="text-center">
+                  <p className="font-semibold text-white">Scan to download</p>
+                  <div className="mt-4 inline-block rounded-2xl bg-white p-6 shadow-xl">
+                    <Image
+                      src="/QR.png"
+                      alt="QR code to download the WeShare app"
+                      width={200}
+                      height={200}
+                      className="rounded-lg"
+                    />
+                  </div>
+                  <p className="mt-4 text-sm text-white/90">
+                    Available now on iOS
+                  </p>
+                </div>
+              </div>
             </div>
-            <p className="mt-3 text-center text-xs text-ink-muted">
-              Point your camera here
-            </p>
           </div>
         </div>
       </section>
