@@ -61,14 +61,17 @@ export default function HomePage() {
     <>
       <section className="relative overflow-hidden">
         <div className="app-gradient absolute inset-0 -z-10" />
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pt-16 pb-20 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pt-16 pb-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <Badge>
               <BadgeCheck className="size-3.5" />
               Student ride sharing in Los Angeles
             </Badge>
 
-            <Wordmark className="mt-6 block text-4xl sm:text-5xl" />
+            {/* Wrapper div, because Wordmark's root span is inline-flex. */}
+            <div className="mt-6">
+              <Wordmark className="text-4xl sm:text-5xl" />
+            </div>
 
             <h1 className="mt-4 text-4xl leading-[1.08] font-extrabold tracking-tight text-ink sm:text-5xl lg:text-6xl">
               Share the ride,
@@ -121,12 +124,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mx-auto -mb-10 max-w-5xl px-5">
+        <div className="mx-auto max-w-5xl px-5 pb-16">
           <RideSearchForm />
         </div>
       </section>
 
-      <section className="bg-white pt-24 pb-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-6xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>

@@ -1,0 +1,185 @@
+rules_version = '2';
+
+// WeShare Firestore rules — covers both the iOS app and weshare-ride.com.
+// Cloud Functions use the Admin SDK and bypass these rules entirely, so
+// payment capture, payouts and refunds are unaffected.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function uid() {
+      return request.auth.uid;
+    }
+
+    function isOwnField(field) {
+      return signedIn() && resource.data[field] == uid();
+    }
+
+    function creatingOwnField(field) {
+      return signedIn() && request.resource.data[field] == uid();
+    }
+
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    // The support/admin account, hardcoded in the app (ChatListView.adminUserId).
+    function isAdmin() {
+      return signedIn() && uid() == 'Eo6rvvQbmKU1Z2bqmZe5PnSthJR2';
+    }
+
+    // Profiles are visible to signed-in users so driver/passenger cards can be
+    // rendered, but only the owner may write their own document.
+    match /users/{userId} {
+      allow read: if signedIn();
+      allow create, update: if uid() == userId;
+      allow delete: if false;
+
+      match /archivedChats/{chatId} {
+        allow read, write: if uid() == userId;
+      }
+    }
+
+    // Public so visitors can browse rides on the website before signing up.
+    match /rides/{rideId} {
+      allow read: if true;
+      allow create: if creatingOwnField('riderId');
+      // The driver owns the ride, but seat counts are also rewritten by
+      // passengers cancelling a booking, so those two fields stay writable by
+      // any signed-in user. Route, price and date remain driver-only.
+      allow update: if isOwnField('riderId')
+                    || (signedIn() && changedKeys().hasOnly(['availableSeats', 'bookedSeats']));
+      allow delete: if isOwnField('riderId');
+    }
+
+    match /bookings/{bookingId} {
+      allow create: if creatingOwnField('passengerId');
+      allow read, update: if isOwnField('passengerId') || isOwnField('driverId');
+      // The app deletes a booking when the driver rejects the request.
+      allow delete: if isOwnField('driverId');
+    }
+
+    match /chats/{messageId} {
+      allow create: if creatingOwnField('senderId');
+      allow read, update: if isOwnField('senderId') || isOwnField('receiverId') || isAdmin();
+      allow delete: if false;
+    }
+
+    match /rideSearches/{searchId} {
+      allow read: if signedIn();
+      allow create: if creatingOwnField('passengerId');
+      allow update, delete: if isOwnField('passengerId');
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if signedIn();
+      allow create: if creatingOwnField('reviewerId');
+      allow update, delete: if false;
+    }
+
+    match /rewardCredits/{creditId} {
+      allow read, update: if isOwnField('userId');
+      allow create: if creatingOwnField('userId');
+      allow delete: if false;
+    }
+
+    match /creditTransactions/{transactionId} {
+      allow read: if isOwnField('userId');
+      allow create: if creatingOwnField('userId');
+      allow update, delete: if false;
+    }
+
+    match /walletTransactions/{transactionId} {
+      allow read: if isOwnField('userId');
+      allow create: if creatingOwnField('userId');
+      allow update, delete: if false;
+    }
+
+    match /voucherUsage/{usageId} {
+      allow read: if isOwnField('userId');
+      allow create: if creatingOwnField('userId');
+      allow update, delete: if false;
+    }
+
+    // Voucher definitions are managed from the console, never by clients.
+    match /vouchers/{voucherId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    // Written by Cloud Functions only; drivers may read their own records.
+    match /driverEarnings/{earningId} {
+      allow read: if isOwnField('driverId');
+      allow write: if false;
+    }
+
+    match /driverPayouts/{payoutId} {
+      allow read: if isOwnField('driverId');
+      allow write: if false;
+    }
+
+    match /pendingPayouts/{payoutId} {
+      allow read: if isOwnField('driverId');
+      allow write: if false;
+    }
+
+    match /payoutRequests/{requestId} {
+      allow read: if isOwnField('userId') || isOwnField('driverId');
+      allow create: if creatingOwnField('userId') || creatingOwnField('driverId');
+      allow update, delete: if false;
+    }
+
+    // Verification codes: keyed by email address, so ownership can't be checked
+    // against the uid. Requires a signed-in session (the app verifies right
+    // after sign-up) and is never listable.
+    match /emailVerifications/{email} {
+      allow read, write: if signedIn();
+    }
+
+    // Reset codes are requested while signed out, so creation is open — but the
+    // documents must never be readable by a client. Only the
+    // resetPasswordWithCode function (Admin SDK) reads them.
+    match /passwordResets/{resetId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    match /accountDeletionRequests/{userId} {
+      allow read, create: if uid() == userId;
+      allow update, delete: if false;
+    }
+
+    // Push-notification queue consumed and deleted by the sendPushNotification
+    // function. In-app notification records carry a userId.
+    match /notifications/{notificationId} {
+      allow create: if signedIn();
+      allow read, update, delete: if isOwnField('userId');
+    }
+
+    // Outbound email queue for the Trigger Email extension. Write-only.
+    match /mail/{mailId} {
+      allow create: if signedIn();
+      allow read, update, delete: if false;
+    }
+
+    // Analytics events are appended, including before the user signs in.
+    match /analytics/{eventId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    // Version/force-update config read on launch, before authentication.
+    match /appConfig/{configId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Anything not listed above is denied.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
