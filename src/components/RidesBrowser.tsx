@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CarFront, SlidersHorizontal } from "lucide-react";
 import { filterRides, subscribeToRides } from "@/lib/rides";
 import { formatDayHeading } from "@/lib/format";
+import { smartDeparture, smartDestination } from "@/lib/smart-location";
 import type { Ride } from "@/lib/types";
 import { RideCard } from "./RideCard";
 import { RideSearchForm } from "./RideSearchForm";
@@ -71,6 +72,22 @@ export function RidesBrowser() {
     return [...byDay.values()];
   }, [results]);
 
+  /** Place names present in the listings, offered as search suggestions. */
+  const placeSuggestions = useMemo(() => {
+    const names = new Set<string>();
+    for (const ride of rides ?? []) {
+      for (const name of [
+        smartDeparture(ride),
+        smartDestination(ride),
+        ride.departure,
+        ride.destination,
+      ]) {
+        if (name?.trim()) names.add(name.trim());
+      }
+    }
+    return [...names].sort((a, b) => a.localeCompare(b));
+  }, [rides]);
+
   const hasFilters = Boolean(
     filters.from || filters.to || filters.date || filters.seats > 1,
   );
@@ -87,6 +104,7 @@ export function RidesBrowser() {
       <div className="mt-6">
         <RideSearchForm
           variant="inline"
+          suggestions={placeSuggestions}
           initial={{
             from: filters.from,
             to: filters.to,

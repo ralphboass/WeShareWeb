@@ -1,9 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { ArrowRight, CalendarDays, Search, Users } from "lucide-react";
-import { LocationAutocomplete } from "./LocationAutocomplete";
+import { useId, useState } from "react";
+import { ArrowRight, CalendarDays, MapPin, Search, Users } from "lucide-react";
 import { Button, cx } from "./ui";
 
 /**
@@ -13,10 +12,13 @@ import { Button, cx } from "./ui";
 export function RideSearchForm({
   initial,
   variant = "hero",
+  suggestions,
   onSearch,
 }: {
   initial?: { from?: string; to?: string; date?: string; seats?: number };
   variant?: "hero" | "inline";
+  /** Place names taken from the current ride listings. */
+  suggestions?: string[];
   onSearch?: (filters: {
     from: string;
     to: string;
@@ -25,6 +27,7 @@ export function RideSearchForm({
   }) => void;
 }) {
   const router = useRouter();
+  const listId = useId();
   const [from, setFrom] = useState(initial?.from ?? "");
   const [to, setTo] = useState(initial?.to ?? "");
   const [date, setDate] = useState(initial?.date ?? "");
@@ -59,25 +62,45 @@ export function RideSearchForm({
       )}
     >
       <div className="grid gap-2 lg:grid-cols-[1fr_1fr_auto_auto_auto]">
-        <LocationAutocomplete
-          value={from}
-          onChange={setFrom}
-          placeholder="Leaving from"
-          ariaLabel="Leaving from"
-          pinClassName="text-red-500"
-          wrapperClassName={cell}
-          inputClassName={input}
-        />
+        {/* Plain text search over the ride listings themselves (smart label,
+            city and address) — no geocoding, so partial names match. */}
+        <div className={cell}>
+          <MapPin className="size-4 shrink-0 text-red-500" />
+          <input
+            className={input}
+            placeholder="Leaving from"
+            aria-label="Leaving from"
+            list={suggestions?.length ? `${listId}-from` : undefined}
+            value={from}
+            onChange={(event) => setFrom(event.target.value)}
+          />
+          {suggestions?.length ? (
+            <datalist id={`${listId}-from`}>
+              {suggestions.map((name) => (
+                <option key={name} value={name} />
+              ))}
+            </datalist>
+          ) : null}
+        </div>
 
-        <LocationAutocomplete
-          value={to}
-          onChange={setTo}
-          placeholder="Going to"
-          ariaLabel="Going to"
-          pinClassName="text-emerald-500"
-          wrapperClassName={cell}
-          inputClassName={input}
-        />
+        <div className={cell}>
+          <MapPin className="size-4 shrink-0 text-emerald-500" />
+          <input
+            className={input}
+            placeholder="Going to"
+            aria-label="Going to"
+            list={suggestions?.length ? `${listId}-to` : undefined}
+            value={to}
+            onChange={(event) => setTo(event.target.value)}
+          />
+          {suggestions?.length ? (
+            <datalist id={`${listId}-to`}>
+              {suggestions.map((name) => (
+                <option key={name} value={name} />
+              ))}
+            </datalist>
+          ) : null}
+        </div>
 
         <div className={cx(cell, "lg:w-44")}>
           <CalendarDays className="size-4 shrink-0 text-brand-600" />

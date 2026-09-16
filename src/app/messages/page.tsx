@@ -41,6 +41,9 @@ const UNKNOWN_NAME = "WeShare user";
 const CARD_SHELL =
   "overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm";
 
+/** Fixed pane height: the message thread scrolls, the page does not grow. */
+const PANE_HEIGHT = "h-[clamp(26rem,calc(100dvh-16rem),34rem)]";
+
 interface PartnerInfo {
   name: string;
   imageUrl?: string;
@@ -236,13 +239,17 @@ function MessagesView() {
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]">
         {/* Plain divs instead of <Card> here: these panes need zero padding and
             their own scroll areas, which would fight Card's built-in p-6. */}
+        {/* Both panes share one fixed height so the thread scrolls inside the
+            card instead of stretching the page. */}
         <div
           className={cx(
             CARD_SHELL,
-            selectedId ? "hidden lg:block" : "block",
+            PANE_HEIGHT,
+            "flex flex-col",
+            selectedId ? "hidden lg:flex" : "flex",
           )}
         >
-          <div className="border-b border-neutral-100 px-5 py-4">
+          <div className="shrink-0 border-b border-neutral-100 px-5 py-4">
             <p className="text-sm font-semibold text-ink">Conversations</p>
           </div>
 
@@ -262,7 +269,7 @@ function MessagesView() {
               />
             </div>
           ) : (
-            <ul className="max-h-[32rem] divide-y divide-neutral-100 overflow-y-auto">
+            <ul className="min-h-0 flex-1 divide-y divide-neutral-100 overflow-y-auto">
               {conversations.map((conversation) => {
                 const active = conversation.partnerId === selectedId;
                 return (
@@ -313,7 +320,8 @@ function MessagesView() {
         <div
           className={cx(
             CARD_SHELL,
-            "min-h-[32rem] flex-col",
+            PANE_HEIGHT,
+            "flex-col",
             selectedId ? "flex" : "hidden lg:flex",
           )}
         >
@@ -327,7 +335,7 @@ function MessagesView() {
             </div>
           ) : (
             <>
-              <div className="flex items-center gap-3 border-b border-neutral-100 px-5 py-4">
+              <div className="flex shrink-0 items-center gap-3 border-b border-neutral-100 px-5 py-4">
                 <button
                   type="button"
                   onClick={() => setSelectedId(null)}
@@ -346,7 +354,7 @@ function MessagesView() {
                 </p>
               </div>
 
-              <div className="flex-1 space-y-3 overflow-y-auto px-5 py-5">
+              <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-5">
                 {thread.length === 0 ? (
                   <p className="py-10 text-center text-sm text-ink-muted">
                     No messages yet. Say hello.
@@ -389,7 +397,7 @@ function MessagesView() {
                 <div ref={bottomRef} />
               </div>
 
-              <div className="border-t border-neutral-100 px-5 py-4">
+              <div className="shrink-0 border-t border-neutral-100 px-5 py-4">
                 {sendError && (
                   <div className="mb-3">
                     <Alert>{sendError}</Alert>

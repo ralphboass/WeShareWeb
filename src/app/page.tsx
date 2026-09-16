@@ -94,7 +94,23 @@ export default function HomePage() {
               get where you&apos;re going together.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            {/* On phones the app is the better experience, so it leads. */}
+            <div className="mt-7 flex flex-col gap-3 sm:hidden">
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
+              >
+                Download the app
+                <ArrowRight className="size-4" />
+              </a>
+              <ButtonLink href="/rides" variant="secondary">
+                Find a ride
+              </ButtonLink>
+            </div>
+
+            <div className="mt-7 hidden gap-3 sm:flex">
               <ButtonLink href="/rides">
                 Find a ride
                 <ArrowRight className="size-4" />
@@ -120,7 +136,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-md">
+          {/* Hidden on phones: the hero reads better without it on a narrow
+              screen, and it saves a 2 MB image on mobile data. */}
+          <div className="relative mx-auto hidden w-full max-w-md lg:block">
             <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-white/40 blur-2xl" />
             <Image
               src="/screenshot1.PNG"
@@ -277,28 +295,15 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Phone bleeds off the bottom of the gradient panel, with the QR
-                  card floating over it, so the panel never looks half empty. */}
-              <div className="relative min-h-80 overflow-hidden bg-gradient-to-br from-brand-600 to-purple-600">
-                <Image
-                  src="/screenshot2.PNG"
-                  alt="WeShare ride details screen"
-                  width={722}
-                  height={1564}
-                  className="absolute -right-2 bottom-[-12%] w-44 rotate-6 rounded-[1.75rem] border-4 border-white/80 shadow-2xl sm:w-52"
-                />
-
-                <div className="absolute bottom-8 left-8 rounded-2xl bg-white p-3 shadow-2xl">
+              <div className="flex items-center justify-center bg-gradient-to-br from-brand-600 to-purple-600 p-8 sm:p-10">
+                <div className="w-full max-w-xs rounded-2xl bg-white p-5 shadow-2xl">
                   <Image
                     src="/QR.png"
                     alt="QR code to download the WeShare app"
-                    width={200}
-                    height={200}
-                    className="size-24 rounded-lg"
+                    width={512}
+                    height={512}
+                    className="w-full rounded-lg"
                   />
-                  <p className="mt-1.5 text-center text-[11px] font-semibold text-ink-muted">
-                    Scan to install
-                  </p>
                 </div>
               </div>
             </div>
