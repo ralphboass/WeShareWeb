@@ -21,7 +21,7 @@ import { fetchProfile } from "@/lib/users";
 import { formatRideDate, formatRideTime } from "@/lib/format";
 import { smartDeparture, smartDestination } from "@/lib/smart-location";
 import { formatMoney } from "@/lib/pricing";
-import type { Booking, Ride, UserProfile } from "@/lib/types";
+import { firstNameOf, type Booking, type Ride, type UserProfile } from "@/lib/types";
 import { useAuth } from "@/contexts/AuthContext";
 import { BookingDialog } from "./BookingDialog";
 import {
@@ -87,6 +87,14 @@ export function RideDetail({ rideId }: { rideId: string }) {
   const activeBookings = bookings.filter(
     (booking) => booking.status === "confirmed" || booking.status === "completed",
   );
+  // Full names only once you share a booking with the person.
+  const showFullNames = isDriver || Boolean(myBooking);
+  const driverFullName = driver
+    ? `${driver.firstName} ${driver.lastName}`.trim()
+    : ride.riderName;
+  const driverDisplayName = showFullNames
+    ? driverFullName
+    : firstNameOf(driverFullName);
   const departed = ride.dateTime.getTime() < Date.now();
   const soldOut = ride.availableSeats <= 0;
 
@@ -239,7 +247,9 @@ export function RideDetail({ rideId }: { rideId: string }) {
                   <li key={booking.id} className="flex items-center gap-3">
                     <Avatar name={booking.passengerName} size={32} />
                     <span className="text-sm font-medium text-ink">
-                      {booking.passengerName}
+                      {showFullNames
+                        ? booking.passengerName
+                        : firstNameOf(booking.passengerName)}
                     </span>
                     <span className="ml-auto text-xs text-ink-muted">
                       {booking.seatsBooked} seat
@@ -268,15 +278,13 @@ export function RideDetail({ rideId }: { rideId: string }) {
               </p>
               <div className="mt-3 flex items-center gap-3">
                 <Avatar
-                  name={driver ? `${driver.firstName} ${driver.lastName}` : ride.riderName}
+                  name={driverDisplayName}
                   imageUrl={driver?.profileImageUrl}
                   size={44}
                 />
                 <div className="min-w-0">
                   <p className="flex items-center gap-1.5 truncate font-bold text-ink">
-                    {driver
-                      ? `${driver.firstName} ${driver.lastName}`.trim()
-                      : ride.riderName}
+                    {driverDisplayName}
                     {driver?.uclaVerified && (
                       <BadgeCheck className="size-4 text-brand-600" />
                     )}

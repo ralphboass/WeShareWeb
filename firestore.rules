@@ -77,8 +77,14 @@ service cloud.firestore {
     match /chats/{messageId} {
       allow create: if creatingOwnField('senderId');
 
-      // Fetching a single message stays restricted to its two participants.
-      allow get: if isOwnField('senderId') || isOwnField('receiverId') || isAdmin();
+      // Fetching a single message stays restricted to the people it concerns:
+      // sender, receiver, and — for system/payout messages — the user named in
+      // `visibleToUserId`, which is how the app shows a driver a notification
+      // addressed to someone else.
+      allow get: if isOwnField('senderId')
+                 || isOwnField('receiverId')
+                 || isOwnField('visibleToUserId')
+                 || isAdmin();
 
       // Listing has to stay open to any signed-in user for now. Security rules
       // are not filters: Firestore validates a list query statically, and the
@@ -92,7 +98,10 @@ service cloud.firestore {
       // becomes: allow list: if signedIn() && uid() in resource.data.participants;
       allow list: if signedIn();
 
-      allow update: if isOwnField('senderId') || isOwnField('receiverId') || isAdmin();
+      allow update: if isOwnField('senderId')
+                    || isOwnField('receiverId')
+                    || isOwnField('visibleToUserId')
+                    || isAdmin();
       allow delete: if false;
     }
 

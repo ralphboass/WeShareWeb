@@ -12,10 +12,6 @@ import { parseAddress } from "@/lib/smart-location";
 
 const PHOTON_ENDPOINT = "https://photon.komoot.io/api/";
 
-// Bias results towards Los Angeles, like the app's MapKit region does.
-const BIAS_LAT = 34.0522;
-const BIAS_LON = -118.2437;
-
 const STATE_ABBREVIATIONS: Record<string, string> = {
   California: "CA",
   Nevada: "NV",
@@ -130,10 +126,11 @@ function toSuggestion(feature: PhotonFeature): PlaceSuggestion | null {
 async function search(term: string): Promise<PlaceSuggestion[]> {
   const url = new URL(PHOTON_ENDPOINT);
   url.searchParams.set("q", term);
-  url.searchParams.set("limit", "8");
+  // No lat/lon bias: it pinned every result to the Los Angeles area, so
+  // searching another city returned nearby LA streets instead. Ranking is left
+  // to the provider and results are filtered to the US below.
+  url.searchParams.set("limit", "12");
   url.searchParams.set("lang", "en");
-  url.searchParams.set("lat", String(BIAS_LAT));
-  url.searchParams.set("lon", String(BIAS_LON));
 
   const response = await fetch(url, {
     headers: { "User-Agent": "WeShareRide/1.0 (https://weshare-ride.com)" },

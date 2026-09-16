@@ -6,6 +6,7 @@ import {
   ArrowDown,
   CalendarDays,
   Check,
+  ChevronDown,
   Clock,
   DollarSign,
   MapPin,
@@ -210,10 +211,12 @@ export default function NewRidePage() {
               </div>
             </Field>
             <Field label="Seats available">
-              <div className="relative">
-                <Users className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-brand-600" />
+              {/* The native select arrow clashes with a leading icon, so the
+                  control is unstyled and the chevron is drawn manually. */}
+              <div className={`${inputClass} flex items-center gap-2.5 py-0`}>
+                <Users className="size-4 shrink-0 text-brand-600" />
                 <select
-                  className={`${inputClass} pl-11`}
+                  className="w-full min-w-0 appearance-none bg-transparent py-3 text-sm font-medium text-ink outline-none"
                   value={seats}
                   onChange={(event) => setSeats(Number(event.target.value))}
                 >
@@ -223,6 +226,7 @@ export default function NewRidePage() {
                     </option>
                   ))}
                 </select>
+                <ChevronDown className="size-4 shrink-0 text-ink-muted" />
               </div>
             </Field>
             <Field label="Price per seat" hint="Cover your fuel and tolls">

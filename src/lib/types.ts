@@ -137,6 +137,13 @@ export interface Review {
 export const fullName = (u: Pick<UserProfile, "firstName" | "lastName">) =>
   `${u.firstName} ${u.lastName}`.trim();
 
+/**
+ * Public surfaces (ride lists, ride pages) show only the first name. The full
+ * name is revealed once the two people share a booking.
+ */
+export const firstNameOf = (name: string) =>
+  (name ?? "").trim().split(/\s+/)[0] ?? "";
+
 export const initialsOf = (name: string) =>
   name
     .split(" ")

@@ -3,7 +3,7 @@ import { ArrowRight, CalendarDays, Clock, Users } from "lucide-react";
 import { formatRideDate, formatRideTime } from "@/lib/format";
 import { smartDeparture, smartDestination } from "@/lib/smart-location";
 import { formatMoney } from "@/lib/pricing";
-import type { Ride } from "@/lib/types";
+import { firstNameOf, type Ride } from "@/lib/types";
 import { Avatar, cx } from "./ui";
 
 /**
@@ -61,7 +61,9 @@ export function RideCard({ ride }: { ride: Ride }) {
         </span>
         <span className="ml-auto inline-flex items-center gap-2">
           <Avatar name={ride.riderName} size={26} />
-          <span className="text-sm font-medium text-ink">{ride.riderName}</span>
+          <span className="text-sm font-medium text-ink">
+            {firstNameOf(ride.riderName)}
+          </span>
         </span>
       </div>
     </Link>

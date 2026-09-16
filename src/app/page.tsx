@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Apple,
   ArrowRight,
   BadgeCheck,
   Check,
@@ -16,6 +15,7 @@ import { RideSearchForm } from "@/components/RideSearchForm";
 import { UpcomingRides } from "@/components/UpcomingRides";
 import { Wordmark } from "@/components/Wordmark";
 import { APP_STORE_URL } from "@/components/Footer";
+import { AppStoreButton, GooglePlayButton } from "@/components/StoreBadges";
 import { Badge, ButtonLink, Card } from "@/components/ui";
 
 const features = [
@@ -238,62 +238,66 @@ export default function HomePage() {
 
       <section
         id="download"
-        className="bg-gradient-to-br from-purple-50 via-brand-50 to-white px-5 py-16"
+        className="bg-gradient-to-b from-white via-brand-50/60 to-white px-5 py-20"
       >
         <div className="mx-auto max-w-6xl">
-          <div className="overflow-hidden rounded-3xl bg-white shadow-2xl shadow-brand-900/10">
-            <div className="grid items-center gap-8 md:grid-cols-2">
-              <div className="p-8 md:p-12">
-                <h2 className="text-3xl font-bold text-ink md:text-4xl">
+          <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xl shadow-brand-900/5">
+            <div className="grid md:grid-cols-[1.05fr_0.95fr]">
+              <div className="p-8 sm:p-12">
+                <Badge>
+                  <Smartphone className="size-3.5" />
+                  iOS app
+                </Badge>
+
+                <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
                   Get the full experience
                 </h2>
-                <p className="mt-4 text-lg text-ink-soft">
-                  Download the WeShare app to book rides, pay securely and stay
-                  connected on the go.
+                <p className="mt-4 text-ink-soft">
+                  Everything on this site works in the app too — plus the extras
+                  a browser can&apos;t give you.
                 </p>
 
-                <ul className="mt-6 space-y-4">
+                <ul className="mt-7 space-y-3.5">
                   {appPerks.map((perk) => (
                     <li key={perk} className="flex items-center gap-3">
-                      <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-100">
-                        <Check className="size-5 text-brand-600" strokeWidth={2.5} />
+                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-100">
+                        <Check
+                          className="size-3.5 text-brand-700"
+                          strokeWidth={3}
+                        />
                       </span>
-                      <span className="text-ink-soft">{perk}</span>
+                      <span className="text-sm text-ink-soft">{perk}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a
-                    href={APP_STORE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3 font-medium text-white transition hover:bg-neutral-800"
-                  >
-                    <Apple className="size-5" />
-                    App Store
-                  </a>
-                  <span className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-200 px-6 py-3 font-medium text-ink-muted">
-                    <Smartphone className="size-5" />
-                    Google Play — soon
-                  </span>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <AppStoreButton />
+                  <GooglePlayButton />
                 </div>
               </div>
 
-              <div className="flex items-center justify-center bg-gradient-to-br from-brand-500 to-purple-600 p-8 md:p-12">
-                <div className="text-center">
-                  <p className="font-semibold text-white">Scan to download</p>
-                  <div className="mt-4 inline-block rounded-2xl bg-white p-6 shadow-xl">
-                    <Image
-                      src="/QR.png"
-                      alt="QR code to download the WeShare app"
-                      width={200}
-                      height={200}
-                      className="rounded-lg"
-                    />
-                  </div>
-                  <p className="mt-4 text-sm text-white/90">
-                    Available now on iOS
+              {/* Phone bleeds off the bottom of the gradient panel, with the QR
+                  card floating over it, so the panel never looks half empty. */}
+              <div className="relative min-h-80 overflow-hidden bg-gradient-to-br from-brand-600 to-purple-600">
+                <Image
+                  src="/screenshot2.PNG"
+                  alt="WeShare ride details screen"
+                  width={722}
+                  height={1564}
+                  className="absolute -right-2 bottom-[-12%] w-44 rotate-6 rounded-[1.75rem] border-4 border-white/80 shadow-2xl sm:w-52"
+                />
+
+                <div className="absolute bottom-8 left-8 rounded-2xl bg-white p-3 shadow-2xl">
+                  <Image
+                    src="/QR.png"
+                    alt="QR code to download the WeShare app"
+                    width={200}
+                    height={200}
+                    className="size-24 rounded-lg"
+                  />
+                  <p className="mt-1.5 text-center text-[11px] font-semibold text-ink-muted">
+                    Scan to install
                   </p>
                 </div>
               </div>
