@@ -238,7 +238,9 @@ export default function HomePage() {
               </ButtonLink>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
+            {/* Screenshots are desktop-only: on a phone they add weight and the
+                real app is one tap away instead. */}
+            <div className="hidden gap-4 lg:grid lg:grid-cols-2 xl:grid-cols-4">
               {screenshots.map((shot) => (
                 <Image
                   key={shot.src}
@@ -295,14 +297,14 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center bg-gradient-to-br from-brand-600 to-purple-600 p-8 sm:p-10">
-                <div className="w-full max-w-xs rounded-2xl bg-white p-5 shadow-2xl">
+              <div className="flex items-center justify-center bg-gradient-to-br from-brand-600 to-purple-600 p-10 sm:p-12">
+                <div className="rounded-2xl bg-white p-4 shadow-2xl">
                   <Image
                     src="/QR.png"
                     alt="QR code to download the WeShare app"
                     width={512}
                     height={512}
-                    className="w-full rounded-lg"
+                    className="size-44 rounded-lg sm:size-48"
                   />
                 </div>
               </div>
