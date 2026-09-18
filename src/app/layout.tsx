@@ -5,6 +5,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { DemoModeBanner } from "@/components/DemoModeBanner";
+import { EmailVerificationGate } from "@/components/EmailVerificationGate";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -15,8 +16,8 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://weshare-ride.com"),
   title: {
-    default: "WeShare Ride — Share the ride, skip the traffic",
-    template: "%s · WeShare Ride",
+    default: "WeShare - share the ride, skip the traffic",
+    template: "%s · WeShare",
   },
   description:
     "WeShare connects UCLA and LA students to share rides. Search rides, book a seat in minutes, and split the cost of the drive.",
@@ -54,7 +55,9 @@ export default function RootLayout({
         <AuthProvider>
           <DemoModeBanner />
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <EmailVerificationGate>{children}</EmailVerificationGate>
+          </main>
           <Footer />
         </AuthProvider>
       </body>

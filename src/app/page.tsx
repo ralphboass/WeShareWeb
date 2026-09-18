@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { RideSearchForm } from "@/components/RideSearchForm";
 import { UpcomingRides } from "@/components/UpcomingRides";
-import { Wordmark } from "@/components/Wordmark";
 import { APP_STORE_URL } from "@/components/Footer";
 import { AppStoreButton, GooglePlayButton } from "@/components/StoreBadges";
 import { Badge, ButtonLink, Card } from "@/components/ui";
@@ -77,15 +76,10 @@ export default function HomePage() {
               Student ride sharing in Los Angeles
             </Badge>
 
-            {/* Wrapper div, because Wordmark's root span is inline-flex. */}
-            <div className="mt-6">
-              <Wordmark className="text-4xl sm:text-5xl" />
-            </div>
-
-            <h1 className="mt-4 text-4xl leading-[1.08] font-extrabold tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            <h1 className="mt-6 text-4xl leading-[1.08] font-extrabold tracking-tight text-ink sm:text-5xl lg:text-6xl">
               Share the ride,
               <br />
-              <span className="text-brand-600">skip the traffic</span>
+              <span className="wordmark-we">skip the traffic</span>
             </h1>
 
             <p className="mt-5 max-w-xl text-lg text-ink-soft">
@@ -297,14 +291,24 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center bg-gradient-to-br from-brand-600 to-purple-600 p-10 sm:p-12">
-                <div className="rounded-2xl bg-white p-4 shadow-2xl">
+              {/* Phone bleeds off the bottom of the gradient panel, with the QR
+                  card positioned to the left of center. */}
+              <div className="relative flex min-h-80 items-center overflow-hidden bg-gradient-to-br from-brand-600 to-purple-600">
+                <Image
+                  src="/screenshot2.PNG"
+                  alt="WeShare ride details screen"
+                  width={722}
+                  height={1564}
+                  className="absolute -right-2 bottom-[-12%] w-44 rotate-6 rounded-[1.75rem] border-4 border-white/80 shadow-2xl sm:w-52"
+                />
+
+                <div className="relative z-10 ml-12 rounded-2xl bg-white p-4 shadow-2xl sm:ml-16">
                   <Image
                     src="/QR.png"
                     alt="QR code to download the WeShare app"
-                    width={512}
-                    height={512}
-                    className="size-44 rounded-lg sm:size-48"
+                    width={200}
+                    height={200}
+                    className="size-32 rounded-lg sm:size-36"
                   />
                 </div>
               </div>
