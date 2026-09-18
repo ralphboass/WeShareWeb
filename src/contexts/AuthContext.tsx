@@ -23,6 +23,7 @@ import {
   isStudentEmail,
   subscribeToProfile,
 } from "@/lib/users";
+import { sendVerificationCode } from "@/lib/verification";
 import type { UserProfile } from "@/lib/types";
 
 interface AuthContextValue {
@@ -98,6 +99,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           phoneNumber: phoneNumber.trim(),
           uclaVerified: isStudentEmail(cleanEmail),
         });
+
+        // The profile is written with emailVerified: false, so the verification
+        // gate takes over from here. As in the app, a failure to send the email
+        // doesn't fail sign-up — the gate offers a resend.
+        try {
+          sessionStorage.setItem(`weshare:code-sent:${cleanEmail}`, "1");
+          await sendVerificationCode(cleanEmail);
+        } catch (error) {
+          sessionStorage.removeItem(`weshare:code-sent:${cleanEmail}`);
+          console.error("Failed to send verification email", error);
+        }
       },
       resetPassword: async (email) => {
         await sendPasswordResetEmail(getFirebaseAuth(), email.trim());

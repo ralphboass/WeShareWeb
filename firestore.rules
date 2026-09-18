@@ -203,9 +203,20 @@ service cloud.firestore {
     }
 
     // Analytics events are appended, including before the user signs in.
+    // The admin app reads them to build per-user activity summaries; no other
+    // client ever reads this collection.
     match /analytics/{eventId} {
       allow create: if true;
-      allow read, update, delete: if false;
+      allow read: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    // Legacy collection the admin app still listens to. Nothing writes it any
+    // more and it is empty, but the listener exists, so admin read access
+    // keeps it from erroring on every launch.
+    match /user_activities/{activityId} {
+      allow read: if isAdmin();
+      allow write: if false;
     }
 
     // Version/force-update config read on launch, before authentication.

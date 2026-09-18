@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Check, Eye, EyeOff, GraduationCap } from "lucide-react";
 import { Alert, Button, Card, Field, cx, inputClass } from "@/components/ui";
 import { Wordmark } from "@/components/Wordmark";
@@ -86,7 +85,6 @@ function PasswordStrength({ password }: { password: string }) {
 }
 
 export default function SignupPage() {
-  const router = useRouter();
   const { signUp, configured } = useAuth();
 
   const [firstName, setFirstName] = useState("");
@@ -136,10 +134,11 @@ export default function SignupPage() {
     setSubmitting(true);
     try {
       await signUp({ email, password, firstName, lastName, phoneNumber });
-      router.push("/rides");
+      // No redirect into the app: the account is unverified, so the
+      // verification gate in the layout renders the code screen. Sending the
+      // user to /rides here would just flash a route they can't use yet.
     } catch (submitError) {
       setError(messageFor(submitError));
-    } finally {
       setSubmitting(false);
     }
   }
