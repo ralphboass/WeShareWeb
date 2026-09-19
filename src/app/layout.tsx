@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Navbar } from "@/components/Navbar";
@@ -60,6 +61,10 @@ export default function RootLayout({
           </main>
           <Footer />
         </AuthProvider>
+        {/* Page views and visitor counts, reported to the Vercel dashboard.
+            Self-hosted through /_vercel/insights, so ad blockers that filter
+            third-party analytics domains do not stop it. */}
+        <Analytics />
       </body>
     </html>
   );
