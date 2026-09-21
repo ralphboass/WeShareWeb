@@ -141,10 +141,43 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
-    // Voucher definitions are managed from the console, never by clients.
+    // Voucher definitions are managed from the console, never by clients — except
+    // the single-use welcome voucher a client mints when redeeming an invite code.
+    // That creation is constrained to one use, one user, and a fixed discount so a
+    // client cannot write itself an arbitrary coupon.
     match /vouchers/{voucherId} {
       allow read: if signedIn();
-      allow write: if false;
+      allow create: if signedIn()
+                    && request.resource.data.maxUses == 1
+                    && request.resource.data.usesPerUser == 1
+                    && request.resource.data.discountAmount <= 5
+                    && request.resource.data.code is string
+                    && request.resource.data.code.matches('WELCOME.*');
+      allow update, delete: if false;
+    }
+
+    // Invite-code lookup: readable by any signed-in user so a code can be resolved
+    // to its owner during signup. Each user may only claim a code for themselves,
+    // and codes are immutable once claimed so an existing code can't be hijacked.
+    match /referralCodes/{code} {
+      allow get: if signedIn();
+      allow list: if signedIn();
+      allow create: if creatingOwnField('userId');
+      allow update, delete: if false;
+    }
+
+    // A referral is created by the invited friend (refereeId == uid) and completed
+    // later by the completeRide flow. Both parties can read it: the referrer needs
+    // it for the Invite Friends screen, the referee to see their pending reward.
+    match /referrals/{referralId} {
+      allow get: if isOwnField('referrerId') || isOwnField('refereeId');
+      allow list: if signedIn();
+      allow create: if creatingOwnField('refereeId')
+                    && request.resource.data.status == 'pending'
+                    && request.resource.data.referrerId != uid();
+      // Completion pays credits into the referrer's balance, so it is done by the
+      // autoCompleteFinishedRides function with the Admin SDK — never by a client.
+      allow update, delete: if false;
     }
 
     // Written by Cloud Functions only; drivers may read their own records.

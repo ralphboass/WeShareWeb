@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["C8RGDV66TB.hello.weshare1"],
+        "components": [
+          { "/": "/rides/*", "comment": "Shared ride links open the ride in the app" },
+          { "/": "/invite/*", "comment": "Friend invite links carry a referral code" }
+        ]
+      }
+    ]
+  }
+}

@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "storage.googleapis.com" },
     ],
   },
+  async headers() {
+    return [
+      {
+        // Apple's CDN only accepts the association file as application/json, and the
+        // file has no extension for Vercel to infer the type from.
+        source: "/.well-known/apple-app-site-association",
+        headers: [{ key: "Content-Type", value: "application/json" }],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
