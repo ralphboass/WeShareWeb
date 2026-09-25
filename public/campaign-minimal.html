@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeShare 7-Day Instagram Cards (Minimal & Color Blocks)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    .wordmark-we {
+      background: linear-gradient(135deg, #2563eb 0%, #7c3aed 60%, #db2777 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .wordmark-we-white {
+      background: linear-gradient(135deg, #60a5fa 0%, #c084fc 60%, #f472b6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* 4:5 Aspect Ratio (1080x1350 scale) */
+    .ig-card {
+      width: 420px;
+      height: 525px;
+      position: relative;
+      border-radius: 32px;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .ig-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.22);
+    }
+    .icon-bubble {
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08);
+    }
+    [contenteditable="true"]:hover {
+      outline: 2px dashed rgba(0, 0, 0, 0.2);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+    .dark [contenteditable="true"]:hover {
+      outline: 2px dashed rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen font-sans selection:bg-blue-600 selection:text-white">
+
+  <!-- Navigation bar -->
+  <header class="border-b border-slate-200 bg-white/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl font-black tracking-tight">
+          <span class="wordmark-we">We</span><span class="text-slate-900">Share</span>
+        </span>
+        <span class="text-xs font-bold px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full">
+          Minimal Color Block Edition
+        </span>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-semibold text-slate-500">
+        <a href="/campaign-vintage.html" class="text-amber-600 hover:underline">Vintage Palette Edition &rarr;</a>
+        <span>•</span>
+        <a href="/campaign-templates.html" class="text-blue-600 hover:underline">Photo Edition &rarr;</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <main class="max-w-7xl mx-auto px-6 py-10">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 text-slate-700 text-xs font-bold mb-3">
+        <span>🎨 Clean & High-Contrast Typography Layouts</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3">
+        7-Day Minimal Color Campaign
+      </h1>
+      <p class="text-slate-600 text-sm leading-relaxed">
+        Modern solid and soft gradient backgrounds with bold iconography, clear step-by-step entry actions, and high feed readability.
+      </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center">
+
+      <!-- ==================== DAY 1: ELECTRIC BLUE ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[420px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-500">
+          <span class="text-blue-600">DAY 1: KICKOFF</span>
+          <span>Reach & Follows</span>
+        </div>
+
+        <div class="ig-card bg-gradient-to-br from-blue-600 via-blue-600 to-indigo-700 text-white p-7 flex flex-col justify-between overflow-hidden">
+          <!-- Top Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+              <span class="text-sm font-black tracking-tight">
+                <span class="wordmark-we-white">We</span><span class="text-white">Share</span>
+              </span>
+            </div>
+            <div class="px-3 py-1 bg-amber-400 text-slate-950 font-black text-[11px] rounded-full uppercase tracking-wider shadow">
+              DAY 1 OF 7
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="my-auto text-center" contenteditable="true">
+            <div class="w-16 h-16 mx-auto mb-4 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 icon-bubble shadow-lg">
+              <i data-lucide="sparkles" class="w-8 h-8 text-amber-300"></i>
+            </div>
+            <div class="inline-block px-3 py-0.5 bg-white/20 rounded-full text-[11px] font-bold uppercase tracking-wider mb-2">
+              ✨ Semester Giveaway
+            </div>
+            <h2 class="text-3xl font-black leading-tight tracking-tight">
+              WIN A SEMESTER<br/>OF FREE RIDES 🚗
+            </h2>
+            <p class="text-blue-100 text-xs mt-1.5">7 Days • 7 Prizes • 1 Grand Winner</p>
+          </div>
+
+          <!-- Steps & Prize Card -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20" contenteditable="true">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300 mb-2">
+              HOW TO ENTER TODAY:
+            </div>
+            <div class="space-y-1.5 text-xs text-white font-medium">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-blue-700 font-black flex items-center justify-center text-[10px] shrink-0">1</span>
+                <span>Follow <b>@weshareapp</b></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-blue-700 font-black flex items-center justify-center text-[10px] shrink-0">2</span>
+                <span>Like & Save this post</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-blue-700 font-black flex items-center justify-center text-[10px] shrink-0">3</span>
+                <span>Tag 2 road-trip buddies below 👇</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between text-[11px] font-bold">
+              <span class="text-amber-300">🎁 Today: $50 Gas Voucher</span>
+              <span class="text-blue-200 font-normal">Ends 11:59PM</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="copyCaption(1)" class="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-blue-600 hover:border-blue-300 text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm">
+          <span>📋 Copy Caption for Day 1</span>
+        </button>
+      </div>
+
+
+      <!-- ==================== DAY 2: LILAC / PURPLE ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[420px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-500">
+          <span class="text-purple-600">DAY 2: DESTINATIONS</span>
+          <span>Story Polls & Comments</span>
+        </div>
+
+        <div class="ig-card bg-gradient-to-br from-violet-600 via-purple-600 to-fuchsia-700 text-white p-7 flex flex-col justify-between overflow-hidden">
+          <!-- Top Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+              <span class="text-sm font-black tracking-tight">
+                <span class="wordmark-we-white">We</span><span class="text-white">Share</span>
+              </span>
+            </div>
+            <div class="px-3 py-1 bg-white text-purple-900 font-black text-[11px] rounded-full uppercase tracking-wider shadow">
+              DAY 2 OF 7
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="my-auto text-center" contenteditable="true">
+            <div class="w-16 h-16 mx-auto mb-4 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 icon-bubble shadow-lg">
+              <i data-lucide="map-pin" class="w-8 h-8 text-pink-300"></i>
+            </div>
+            <div class="inline-block px-3 py-0.5 bg-white/20 rounded-full text-[11px] font-bold uppercase tracking-wider mb-2">
+              📍 Dream Routes
+            </div>
+            <h2 class="text-3xl font-black leading-tight tracking-tight">
+              WHERE ARE WE<br/>DRIVING NEXT? 🛣️
+            </h2>
+            <p class="text-purple-100 text-xs mt-1.5">Campus commute or weekend getaway?</p>
+          </div>
+
+          <!-- Steps & Prize Card -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20" contenteditable="true">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-pink-300 mb-2">
+              HOW TO ENTER TODAY:
+            </div>
+            <div class="space-y-1.5 text-xs text-white font-medium">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-purple-800 font-black flex items-center justify-center text-[10px] shrink-0">1</span>
+                <span>Comment your favorite travel route</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-purple-800 font-black flex items-center justify-center text-[10px] shrink-0">2</span>
+                <span>Vote in our Story Commute Poll</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-purple-800 font-black flex items-center justify-center text-[10px] shrink-0">3</span>
+                <span>Bonus: Tag your regular passenger</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between text-[11px] font-bold">
+              <span class="text-amber-300">🎁 Prize: $30 Coffee Voucher (x2)</span>
+              <span class="text-purple-200 font-normal">2 Winners</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="copyCaption(2)" class="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-purple-600 hover:border-purple-300 text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm">
+          <span>📋 Copy Caption for Day 2</span>
+        </button>
+      </div>
+
+
+      <!-- ==================== DAY 3: CORAL PINK ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[420px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-500">
+          <span class="text-pink-600">DAY 3: AUX BATTLE</span>
+          <span>Story Shares & Music</span>
+        </div>
+
+        <div class="ig-card bg-gradient-to-br from-rose-500 via-pink-600 to-orange-500 text-white p-7 flex flex-col justify-between overflow-hidden">
+          <!-- Top Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+              <span class="text-sm font-black tracking-tight">
+                <span class="wordmark-we-white">We</span><span class="text-white">Share</span>
+              </span>
+            </div>
+            <div class="px-3 py-1 bg-white text-pink-700 font-black text-[11px] rounded-full uppercase tracking-wider shadow">
+              DAY 3 OF 7
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="my-auto text-center" contenteditable="true">
+            <div class="w-16 h-16 mx-auto mb-4 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 icon-bubble shadow-lg">
+              <i data-lucide="music" class="w-8 h-8 text-amber-300"></i>
+            </div>
+            <div class="inline-block px-3 py-0.5 bg-white/20 rounded-full text-[11px] font-bold uppercase tracking-wider mb-2">
+              🎧 The Carpool Playlist
+            </div>
+            <h2 class="text-3xl font-black leading-tight tracking-tight">
+              PASS THE AUX CORD 🎶
+            </h2>
+            <p class="text-pink-100 text-xs mt-1.5">What 1 song is mandatory in the car?</p>
+          </div>
+
+          <!-- Steps & Prize Card -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20" contenteditable="true">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300 mb-2">
+              HOW TO ENTER TODAY:
+            </div>
+            <div class="space-y-1.5 text-xs text-white font-medium">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-pink-700 font-black flex items-center justify-center text-[10px] shrink-0">1</span>
+                <span>Share this post to your Story</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-pink-700 font-black flex items-center justify-center text-[10px] shrink-0">2</span>
+                <span>Add your song sticker & tag <b>@weshareapp</b></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-pink-700 font-black flex items-center justify-center text-[10px] shrink-0">3</span>
+                <span>Drop the artist in comments 👇</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between text-[11px] font-bold">
+              <span class="text-amber-300">🎁 Prize: 1-Yr Spotify Premium</span>
+              <span class="text-pink-100 font-normal">1 Winner</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="copyCaption(3)" class="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-pink-600 hover:border-pink-300 text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm">
+          <span>📋 Copy Caption for Day 3</span>
+        </button>
+      </div>
+
+
+      <!-- ==================== DAY 4: EMERALD / MINT ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[420px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-500">
+          <span class="text-emerald-600">DAY 4: APP DOWNLOAD</span>
+          <span>User Signups & Credit</span>
+        </div>
+
+        <div class="ig-card bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white p-7 flex flex-col justify-between overflow-hidden">
+          <!-- Top Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+              <span class="text-sm font-black tracking-tight">
+                <span class="wordmark-we-white">We</span><span class="text-white">Share</span>
+              </span>
+            </div>
+            <div class="px-3 py-1 bg-white text-emerald-900 font-black text-[11px] rounded-full uppercase tracking-wider shadow">
+              DAY 4 OF 7
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="my-auto text-center" contenteditable="true">
+            <div class="w-16 h-16 mx-auto mb-4 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 icon-bubble shadow-lg">
+              <i data-lucide="wallet" class="w-8 h-8 text-emerald-200"></i>
+            </div>
+            <div class="inline-block px-3 py-0.5 bg-white/20 rounded-full text-[11px] font-bold uppercase tracking-wider mb-2">
+              💵 Split & Save Big
+            </div>
+            <h2 class="text-3xl font-black leading-tight tracking-tight">
+              SPLIT THE FARE,<br/>KEEP YOUR CASH 💰
+            </h2>
+            <p class="text-emerald-100 text-xs mt-1.5">Save up to 75% on every campus commute</p>
+          </div>
+
+          <!-- Steps & Prize Card -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20" contenteditable="true">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-200 mb-2">
+              HOW TO ENTER TODAY:
+            </div>
+            <div class="space-y-1.5 text-xs text-white font-medium">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-emerald-700 font-black flex items-center justify-center text-[10px] shrink-0">1</span>
+                <span>Download the <b>WeShare</b> App</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-emerald-700 font-black flex items-center justify-center text-[10px] shrink-0">2</span>
+                <span>Create your free verified account</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-emerald-700 font-black flex items-center justify-center text-[10px] shrink-0">3</span>
+                <span>DM us "RIDESHARE" with your handle</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between text-[11px] font-bold">
+              <span class="text-emerald-200">🎁 Prize: $25 Instant Credit</span>
+              <span class="text-emerald-100 font-normal">All get $5!</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="copyCaption(4)" class="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-emerald-600 hover:border-emerald-300 text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm">
+          <span>📋 Copy Caption for Day 4</span>
+        </button>
+      </div>
+
+
+      <!-- ==================== DAY 5: CANARY YELLOW ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[420px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-500">
+          <span class="text-amber-600">DAY 5: PERSONAS QUIZ</span>
+          <span>Relatable Tagging & DMs</span>
+        </div>
+
+        <div class="ig-card bg-gradient-to-br from-amber-400 via-amber-500 to-orange-500 text-slate-950 p-7 flex flex-col justify-between overflow-hidden">
+          <!-- Top Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 bg-black/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-black/15">
+              <span class="text-sm font-black tracking-tight">
+                <span class="wordmark-we">We</span><span class="text-slate-950">Share</span>
+              </span>
+            </div>
+            <div class="px-3 py-1 bg-slate-950 text-amber-400 font-black text-[11px] rounded-full uppercase tracking-wider shadow">
+              DAY 5 OF 7
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="my-auto text-center" contenteditable="true">
+            <div class="w-16 h-16 mx-auto mb-3 bg-slate-950/10 rounded-2xl flex items-center justify-center border border-black/10 icon-bubble">
+              <i data-lucide="users" class="w-8 h-8 text-slate-900"></i>
+            </div>
+            <div class="inline-block px-3 py-0.5 bg-slate-950 text-amber-300 rounded-full text-[11px] font-bold uppercase tracking-wider mb-2">
+              🚗 Commuter Persona
+            </div>
+            <h2 class="text-2xl font-black leading-tight tracking-tight mb-2">
+              WHICH ONE ARE YOU<br/>IN THE CAR? 🤔
+            </h2>
+            <div class="grid grid-cols-2 gap-1.5 text-[11px] font-extrabold max-w-xs mx-auto">
+              <span class="bg-white/80 p-1.5 rounded-lg border border-black/5">1. The DJ 🎧</span>
+              <span class="bg-white/80 p-1.5 rounded-lg border border-black/5">2. The Sleeper 😴</span>
+              <span class="bg-white/80 p-1.5 rounded-lg border border-black/5">3. The Snacker 🍟</span>
+              <span class="bg-white/80 p-1.5 rounded-lg border border-black/5">4. Co-Pilot 🗺️</span>
+            </div>
+          </div>
+
+          <!-- Steps & Prize Card -->
+          <div class="bg-slate-950/90 text-white rounded-2xl p-4 border border-black/20" contenteditable="true">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400 mb-2">
+              HOW TO ENTER TODAY:
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-200 font-medium">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center text-[10px] shrink-0">1</span>
+                <span>Comment your number (1 - 4)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center text-[10px] shrink-0">2</span>
+                <span>Tag a friend who is guilty of #2 or #3!</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-[11px] font-bold">
+              <span class="text-amber-400">🎁 Prize: $50 Snack & Merch Box</span>
+              <span class="text-slate-400 font-normal">1 Winner</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="copyCaption(5)" class="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-amber-600 hover:border-amber-300 text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm">
+          <span>📋 Copy Caption for Day 5</span>
+        </button>
+      </div>
+
+
+      <!-- ==================== DAY 6: ELECTRIC CYAN ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[420px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-500">
+          <span class="text-sky-600">DAY 6: CORE ACTION</span>
+          <span>5x Grand Entries</span>
+        </div>
+
+        <div class="ig-card bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700 text-white p-7 flex flex-col justify-between overflow-hidden">
+          <!-- Top Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+              <span class="text-sm font-black tracking-tight">
+                <span class="wordmark-we-white">We</span><span class="text-white">Share</span>
+              </span>
+            </div>
+            <div class="px-3 py-1 bg-white text-blue-900 font-black text-[11px] rounded-full uppercase tracking-wider shadow">
+              DAY 6 OF 7
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="my-auto text-center" contenteditable="true">
+            <div class="w-16 h-16 mx-auto mb-4 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 icon-bubble shadow-lg">
+              <i data-lucide="car" class="w-8 h-8 text-amber-300"></i>
+            </div>
+            <div class="inline-block px-3 py-0.5 bg-amber-400 text-slate-950 rounded-full text-[11px] font-black uppercase tracking-wider mb-2">
+              🎟️ 5X BONUS ENTRIES
+            </div>
+            <h2 class="text-3xl font-black leading-tight tracking-tight">
+              POST OR BOOK<br/>A RIDE TODAY 🚘
+            </h2>
+            <p class="text-sky-100 text-xs mt-1.5">Driver or passenger: unlock 5x entries!</p>
+          </div>
+
+          <!-- Steps & Prize Card -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20" contenteditable="true">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300 mb-2">
+              HOW TO ENTER TODAY:
+            </div>
+            <div class="space-y-1.5 text-xs text-white font-medium">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-blue-800 font-black flex items-center justify-center text-[10px] shrink-0">1</span>
+                <span>List a trip OR book a seat in <b>WeShare</b></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-blue-800 font-black flex items-center justify-center text-[10px] shrink-0">2</span>
+                <span>Automatic 5x entries to Grand Prize</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-white text-blue-800 font-black flex items-center justify-center text-[10px] shrink-0">3</span>
+                <span>Comment "RIDE READY" below</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between text-[11px] font-bold">
+              <span class="text-amber-300">🎁 Prize: 1 Month 100% Fee Waiver</span>
+              <span class="text-sky-100 font-normal">3 Winners</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="copyCaption(6)" class="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-sky-600 hover:border-sky-300 text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm">
+          <span>📋 Copy Caption for Day 6</span>
+        </button>
+      </div>
+
+
+      <!-- ==================== DAY 7: MIDNIGHT GOLD GRAND FINALE ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[420px] lg:col-span-2 xl:col-span-3">
+        <div class="flex items-center justify-between w-full max-w-[420px] px-2 text-xs font-bold text-slate-500">
+          <span class="text-amber-500">DAY 7: GRAND DRAW</span>
+          <span>Live Winner Reveal</span>
+        </div>
+
+        <div class="ig-card bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-7 flex flex-col justify-between overflow-hidden border border-amber-400/30">
+          <!-- Top Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15">
+              <span class="text-sm font-black tracking-tight">
+                <span class="wordmark-we-white">We</span><span class="text-white">Share</span>
+              </span>
+            </div>
+            <div class="px-3.5 py-1 bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-[11px] rounded-full uppercase tracking-wider shadow-lg animate-pulse">
+              🏆 GRAND FINALE
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="my-auto text-center" contenteditable="true">
+            <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-tr from-amber-400 to-yellow-300 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/20">
+              <i data-lucide="trophy" class="w-8 h-8 text-slate-950"></i>
+            </div>
+            <div class="inline-block px-3 py-0.5 bg-amber-400/20 text-amber-300 border border-amber-400/30 rounded-full text-[11px] font-bold uppercase tracking-wider mb-2">
+              🎉 Final Hours To Enter
+            </div>
+            <h2 class="text-3xl font-black leading-tight tracking-tight text-white">
+              GRAND PRIZE DRAW<br/>IS TONIGHT! 🎁
+            </h2>
+            <p class="text-amber-200/80 text-xs mt-1.5">1 Semester Free Rides + $250 Travel Voucher</p>
+          </div>
+
+          <!-- Steps & Prize Card -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-amber-400/25" contenteditable="true">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300 mb-2">
+              FINAL CALL TO ENTER:
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-100 font-medium">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center text-[10px] shrink-0">1</span>
+                <span>Tag everyone you carpooled with this year</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center text-[10px] shrink-0">2</span>
+                <span>Join our IG Live tonight at 7:00 PM EST</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-[11px] font-bold">
+              <span class="text-amber-300">🏆 WINNER ANNOUNCED LIVE</span>
+              <span class="text-slate-300 font-normal">7:00 PM EST</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="copyCaption(7)" class="w-full max-w-[420px] py-2.5 px-4 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-amber-600 hover:border-amber-300 text-xs font-bold flex items-center justify-center gap-2 transition shadow-sm">
+          <span>📋 Copy Caption for Day 7</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Toast for caption copy -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-2xl transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-50">
+    Copied to clipboard!
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const captions = {
+      1: `🎉 DAY 1/7: WIN A SEMESTER OF FREE RIDES! 🚗💨\n\nWe’re kicking off the 7-Day WeShare Roadtrip Giveaway! Every single day this week we’re giving away fuel cards, ride credits, and Spotify subs, leading up to our GRAND PRIZE: 1 Full Semester of Free Rides + $250 travel voucher! 🎁\n\n⚡ TODAY’S PRIZE: $50 Gas / Ride Voucher\n\n👉 HOW TO ENTER (Day 1):\n1. Follow @weshareapp\n2. Like & save this post\n3. Tag 2 road-trip friends below! 👇\n\nWinner announced on our Story tomorrow at 12 PM EST. Let’s roll! 🚀\n\n#WeShare #Carpool #StudentRides #Giveaway #CampusLife #RoadtripVibes #SaveMoney`,
+      2: `📍 DAY 2/7: WHERE ARE WE DRIVING NEXT? 🛣️\n\nWhether it’s a quick hop to campus or a weekend roadtrip to the coast, WeShare lets you split fuel and cut travel costs.\n\n⚡ TODAY’S PRIZE: $30 Coffee / Fuel Voucher (2 Winners)\n\n👉 HOW TO ENTER (Day 2):\n1. Comment your most frequent commute route below!\n2. Head to our Story & vote in today's Commute Poll\n3. Tag your daily co-pilot! 👯\n\n#WeShare #RoadTrip #CommuteSmart #CarpoolCrew #CampusHacks #RideTogether`,
+      3: `🎧 DAY 3/7: PASS THE AUX CORD 🎶🔥\n\nNo boring commutes allowed. What’s that ONE song that has to play whenever you're in the car?\n\n⚡ TODAY’S PRIZE: 1-Year Spotify Premium Subscription\n\n👉 HOW TO ENTER (Day 3):\n1. Share this post to your Story with the song sticker!\n2. Tag @weshareapp\n3. Drop the artist/track in the comments below! 🎵\n\n#WeShare #AuxCord #RoadTripPlaylist #MusicVibes #SpotifyPremium #Giveaway`,
+      4: `💵 DAY 4/7: SPLIT THE FARE, KEEP YOUR CASH 💰\n\nGas prices going up? Cut your transit bill by up to 75% with WeShare.\n\n⚡ TODAY’S PRIZE: $25 WeShare Wallet Credit (PLUS everyone who registers gets $5 free credit!)\n\n👉 HOW TO ENTER (Day 4):\n1. Download the WeShare app (Link in bio!)\n2. Create your free student / verified profile\n3. DM us the word "RIDESHARE" with your username!\n\n#WeShare #MoneySavingTips #BudgetHack #StudentDiscount #Carpooling #SplitTheBill`,
+      5: `🎭 DAY 5/7: WHICH PASSENGER ARE YOU? 🤔\n\nEvery car ride has one:\n1. The DJ 🎧\n2. The Sleeper 😴\n3. The Snacker 🍟\n4. The Co-Pilot 🗺️\n\n⚡ TODAY’S PRIZE: $50 Snack & Merch Bundle\n\n👉 HOW TO ENTER (Day 5):\n1. Comment your number below!\n2. Expose your friend who always sleeps or eats all the snacks 😂👇\n\n#WeShare #Relatable #PassengerPrincess #RoadTripHumor #CampusVibes #CarpoolLife`,
+      6: `🚗 DAY 6/7: POST OR BOOK A RIDE = 5X ENTRIES 🎟️\n\nGot an empty seat or looking for a ride this week? Post it or book it on WeShare today and get 5X entries into tomorrow’s Grand Draw!\n\n⚡ TODAY’S PRIZE: 100% Ride Fee Waiver for 1 Month (3 Winners)\n\n👉 HOW TO ENTER (Day 6):\n1. List a trip or book a ride on the WeShare app\n2. Comment "RIDE READY" below!\n\n#WeShare #RideShare #CarpoolApp #DriverPerks #SaveGas #UniversityCommute`,
+      7: `🏆 DAY 7/7: THE GRAND PRIZE DRAW IS TONIGHT! 🎁🎉\n\n7 Days of giveaways come down to THIS. One winner will receive:\n⭐ 1 Full Semester of Free Rides on WeShare\n⭐ $250 Travel / Gas Voucher\n\n👉 FINAL CALL TO ENTER (Day 7):\n1. Tag everyone who rode with you this year in the comments!\n2. Make sure you follow @weshareapp\n3. Tune into our INSTAGRAM LIVE tonight at 7:00 PM EST where we pick the winner live! 🔴\n\n#WeShare #GiveawayWinner #GrandPrize #LiveDraw #CarpoolCommunity #ThankYou`
+    };
+
+    function copyCaption(day) {
+      const text = captions[day];
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.innerText = `Day ${day} Caption copied to clipboard!`;
+        toast.classList.remove('opacity-0', 'translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-4');
+          toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 2500);
+      });
+    }
+  </script>
+</body>
+</html>

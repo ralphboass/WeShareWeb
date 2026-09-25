@@ -88,9 +88,11 @@ export function Panel({
 export function Badge({
   tone = "brand",
   children,
+  className,
 }: {
   tone?: "brand" | "yellow" | "green" | "red" | "neutral";
   children: ReactNode;
+  className?: string;
 }) {
   const tones = {
     brand: "bg-brand-100 text-brand-700",
@@ -104,6 +106,7 @@ export function Badge({
       className={cx(
         "inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold",
         tones[tone],
+        className,
       )}
     >
       {children}

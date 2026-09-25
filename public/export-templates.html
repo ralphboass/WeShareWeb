@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeShare Instagram Templates & Asset Exporter (19 Colorways)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html-to-image for crisp 1080x1350 PNG export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 1080x1350 master export container scale down for crisp UI */
+    .render-card {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      border-radius: 56px;
+      overflow: hidden;
+      box-sizing: border-box;
+      transform-origin: top left;
+    }
+    .preview-wrapper {
+      width: 432px;
+      height: 540px;
+      position: relative;
+    }
+    .scaled-card {
+      transform: scale(0.4);
+      transform-origin: top left;
+    }
+    .polaroid-frame {
+      background: #FAF6EE;
+      box-shadow: 0 25px 60px -10px rgba(0,0,0,0.45);
+      border-radius: 20px;
+      position: relative;
+    }
+    .washi-tape {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 40px;
+      background: rgba(250, 246, 238, 0.85);
+      backdrop-filter: blur(4px);
+      border-left: 4px dashed rgba(0,0,0,0.18);
+      border-right: 4px dashed rgba(0,0,0,0.18);
+    }
+    .image-placeholder-box {
+      border: 3px dashed #C5BCAC;
+      background: #F0E8DC;
+      transition: all 0.2s;
+    }
+    .image-placeholder-box:hover {
+      border-color: #2563EB;
+      background: #E8E0D2;
+    }
+    [contenteditable="true"]:hover {
+      outline: 3px dashed rgba(255, 255, 255, 0.55);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+    .light-theme [contenteditable="true"]:hover {
+      outline: 3px dashed rgba(0, 0, 0, 0.35);
+    }
+  </style>
+</head>
+<body class="bg-[#ECE6DC] text-stone-900 min-h-screen font-sans selection:bg-blue-600 selection:text-white">
+
+  <!-- Top Sticky Header -->
+  <header class="border-b border-stone-300 bg-[#FAF6EE]/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl font-black font-serif text-stone-900">
+          <span class="text-blue-600">We</span>Share
+        </span>
+        <span class="text-xs font-bold px-3 py-1 bg-blue-100 text-blue-900 rounded-full border border-blue-200">
+          Clean Poster Exporter (1080×1350)
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/campaign-teaser.html" class="px-3.5 py-2 bg-amber-400 text-stone-950 text-xs font-mono font-bold rounded-xl hover:bg-amber-300 transition flex items-center gap-1.5 shadow-sm">
+          <span>🏆 Teaser Posters &rarr;</span>
+        </a>
+        <button onclick="downloadAllPNGs()" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition flex items-center gap-1.5 shadow-md">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Download All 19 Clean PNGs</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructions Banner -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+    <div class="bg-[#FAF6EE] border-2 border-stone-300 rounded-2xl p-6 mb-10 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-black font-serif text-stone-900 mb-1">
+            🎨 Clean 1080×1350 Instagram Files (Lower Text Box Removed on Download)
+          </h2>
+          <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">
+            • <b>The Downloaded PNG/SVG</b> contains only the clean poster: editable Day Badge, photo placeholder, and bold headline (no lower box).<br/>
+            • <b>The Website Guide</b> underneath each card keeps your "How to Enter" steps, prize info, and copyable captions.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono font-bold px-3 py-2 bg-blue-100 text-blue-900 rounded-lg border border-blue-200">
+            19 Vintage & Pastel Colorways
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+      <!-- Injected via JavaScript below -->
+    </div>
+  </main>
+
+  <!-- Toast for caption copy -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-stone-900 text-[#FAF6EE] text-xs font-bold px-4 py-2.5 rounded-xl shadow-2xl transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-50">
+    Caption copied to clipboard!
+  </div>
+
+  <script>
+    const cardData = [
+      {
+        id: 1,
+        name: "WeShare-Day1-CobaltBlue",
+        svgName: "Day1-CobaltBlue.svg",
+        label: "01 // COBALT BLUE",
+        desc: "Day 1 • Kickoff",
+        bg: "#1E40AF",
+        isLight: false,
+        ticketColor: "#1E40AF",
+        dayBadge: "★ DAY 01 OF 07 ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#1E40AF",
+        tag: "⚡ SEMESTER GIVEAWAY",
+        title: "Start The Semester<br/>With $100 Cash 🎟️",
+        subtitle: "7 Days of Drops • 1 Grand Winner",
+        passNo: "PASS NO. 001",
+        step1: "Follow <b>@weshareapp</b>",
+        step2: "Like & Save this post",
+        step3: "Tag 2 carpool friends below 👇",
+        prize: "🎁 TODAY: $15 COFFEE VOUCHER",
+        photoCaption: "EST. 2026 // ROAD TRIP",
+        icon: "image"
+      },
+      {
+        id: 2,
+        name: "WeShare-Day2-VioletPurple",
+        svgName: "Day2-VioletPurple.svg",
+        label: "02 // VIOLET PURPLE",
+        desc: "Day 2 • Routes",
+        bg: "#581C87",
+        isLight: false,
+        ticketColor: "#581C87",
+        dayBadge: "★ DAY 02 OF 07 ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#581C87",
+        tag: "📍 DREAM COMMUTES",
+        title: "Where Are We<br/>Driving Next? 🛣️",
+        subtitle: "Campus commute or weekend getaway?",
+        passNo: "PASS NO. 002",
+        step1: "Comment your most frequent route",
+        step2: "Vote in our Story Commute Poll",
+        step3: "Tag your everyday co-pilot 👯",
+        prize: "🎁 TODAY: $15 TARGET CARD",
+        photoCaption: "HIGHWAY VIBES",
+        icon: "map-pin"
+      },
+      {
+        id: 3,
+        name: "WeShare-Day3-RosePink",
+        svgName: "Day3-RosePink.svg",
+        label: "03 // DEEP ROSE PINK",
+        desc: "Day 3 • Aux Battle",
+        bg: "#9D174D",
+        isLight: false,
+        ticketColor: "#9D174D",
+        dayBadge: "★ DAY 03 OF 07 ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#9D174D",
+        tag: "📻 AUX CORD BATTLE",
+        title: "Pass The Aux Cord,<br/>Drop That Track 🎶",
+        subtitle: "What 1 song is mandatory in the car?",
+        passNo: "PASS NO. 003",
+        step1: "Share this post to your Story",
+        step2: "Add your song sticker & tag <b>@weshareapp</b>",
+        step3: "Drop the track in comments 👇",
+        prize: "🎁 TODAY: 1-MO SPOTIFY PREMIUM",
+        photoCaption: "CASSETTE SIDE A",
+        icon: "music"
+      },
+      {
+        id: 4,
+        name: "WeShare-Day4-SkyCyan",
+        svgName: "Day4-SkyCyan.svg",
+        label: "04 // SKY CYAN",
+        desc: "Day 4 • Split & Save",
+        bg: "#075985",
+        isLight: false,
+        ticketColor: "#075985",
+        dayBadge: "★ DAY 04 OF 07 ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#075985",
+        tag: "💵 BUDGET HACK",
+        title: "Split The Ride,<br/>Save Up To 75% 💰",
+        subtitle: "Verified student rides • Instant matching",
+        passNo: "PASS NO. 004",
+        step1: "Download the <b>WeShare</b> App",
+        step2: "Create your free student account",
+        step3: "DM us 'RIDESHARE' with your handle",
+        prize: "🎁 TODAY: $15 CHIPOTLE CARD",
+        photoCaption: "SMART COMMUTE",
+        icon: "piggy-bank"
+      },
+      {
+        id: 5,
+        name: "WeShare-Day5-WarmOatmeal",
+        svgName: "Day5-WarmOatmeal.svg",
+        label: "05 // WARM OATMEAL",
+        desc: "Day 5 • Passenger Personas",
+        bg: "#FAF6EE",
+        isLight: true,
+        textColor: "#1C1917",
+        ticketColor: "#1C1917",
+        dayBadge: "★ DAY 05 OF 07 ★",
+        dayBadgeBg: "#1C1917",
+        dayBadgeText: "#FAF6EE",
+        tag: "🎭 CARPOOL PERSONAS",
+        title: "Which One Are You<br/>In The Car? 🎭",
+        subtitle: "1. The DJ • 2. The Sleeper • 3. Snacker • 4. Co-Pilot",
+        passNo: "PASS NO. 005",
+        step1: "Comment your number (1 - 4)",
+        step2: "Tag a friend who is guilty of #2 or #3 😂",
+        step3: "Follow <b>@weshareapp</b>",
+        prize: "🎁 TODAY: $15 SNACK BOX",
+        photoCaption: "CREW CHECK",
+        icon: "users"
+      },
+      {
+        id: 6,
+        name: "WeShare-Day6-IndigoNavy",
+        svgName: "Day6-IndigoNavy.svg",
+        label: "06 // INDIGO NAVY",
+        desc: "Day 6 • 5x Entries",
+        bg: "#312E81",
+        isLight: false,
+        ticketColor: "#312E81",
+        dayBadge: "★ DAY 06 OF 07 ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#312E81",
+        tag: "🎟️ 5X GRAND ENTRIES",
+        title: "Post Or Book<br/>A Ride Today 🚘",
+        subtitle: "Driver or rider: unlock 5x entries for $100 draw!",
+        passNo: "PASS NO. 006",
+        step1: "List a trip or book a seat on <b>WeShare</b>",
+        step2: "Instant 5x entries to tomorrow's $100 Draw",
+        step3: "Comment 'RIDE READY' below 👇",
+        prize: "🎁 TODAY: 1-MO FEE WAIVER (3X)",
+        photoCaption: "EMPTY SEATS",
+        icon: "car"
+      },
+      {
+        id: 7,
+        name: "WeShare-Day7-ObsidianGold",
+        svgName: "Day7-ObsidianGold.svg",
+        label: "07 // OBSIDIAN & GOLD",
+        desc: "Day 7 • Grand Finale",
+        bg: "#18181B",
+        isLight: false,
+        ticketColor: "#18181B",
+        dayBadge: "🏆 GRAND FINALE 🏆",
+        dayBadgeBg: "#FBBF24",
+        dayBadgeText: "#18181B",
+        tag: "🎉 FINAL HOURS TO ENTER",
+        title: "The $100 Grand Prize<br/>Draw Is Tonight! 🎁",
+        subtitle: "$100 Amazon / Apple Card OR AirPods + Free Rides",
+        passNo: "PASS NO. 777",
+        step1: "Tag everyone you carpooled with this year",
+        step2: "Join our IG Live tonight at 7:00 PM EST! 🔴",
+        step3: "Follow <b>@weshareapp</b>",
+        prize: "🏆 $100 GRAND WINNER ANNOUNCED",
+        photoCaption: "GRAND DRAW",
+        icon: "trophy"
+      },
+      {
+        id: 8,
+        name: "WeShare-Bonus-HoneyMustard",
+        svgName: "Bonus-HoneyMustard.svg",
+        label: "08 // HONEY MUSTARD",
+        desc: "Warm 70s Commuter",
+        bg: "#D97706",
+        isLight: false,
+        ticketColor: "#78350F",
+        dayBadge: "★ BONUS DROP ★",
+        dayBadgeBg: "#1C1917",
+        dayBadgeText: "#FAF6EE",
+        tag: "☀️ COMMUTER SPECIAL",
+        title: "Never Drive Alone,<br/>Share The Gas ⛽",
+        subtitle: "Connect with verified student carpools",
+        passNo: "PASS NO. 008",
+        step1: "Download the <b>WeShare</b> app",
+        step2: "Sign up with your college email",
+        step3: "Claim your $10 welcome credit",
+        prize: "🎁 PERK: $10 WELCOME CREDIT",
+        photoCaption: "SUNSHINE DRIVE",
+        icon: "sun"
+      },
+      {
+        id: 9,
+        name: "WeShare-Bonus-ForestSage",
+        svgName: "Bonus-ForestSage.svg",
+        label: "09 // FOREST SAGE",
+        desc: "Eco Clean Commute",
+        bg: "#1E3A2F",
+        isLight: false,
+        ticketColor: "#064E3B",
+        dayBadge: "★ ECO COMMUTE ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#1E3A2F",
+        tag: "🌲 ECO COMMUTE",
+        title: "Less Traffic,<br/>More Memories 🍃",
+        subtitle: "Ride together & reduce campus carbon footprint",
+        passNo: "PASS NO. 009",
+        step1: "Share your regular commute in WeShare",
+        step2: "Help 3 classmates get to campus",
+        step3: "Unlock Verified Driver status",
+        prize: "🎁 ECO DRIVER BADGE & PERKS",
+        photoCaption: "CLEAN DRIVE",
+        icon: "trees"
+      },
+      {
+        id: 10,
+        name: "WeShare-Bonus-SunsetCoral",
+        svgName: "Bonus-SunsetCoral.svg",
+        label: "10 // SUNSET CORAL",
+        desc: "Weekend Getaway",
+        bg: "#BE4B38",
+        isLight: false,
+        ticketColor: "#881337",
+        dayBadge: "★ WEEKEND ESCAPE ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#BE4B38",
+        tag: "🌅 WEEKEND ESCAPE",
+        title: "Your Next Road Trip<br/>Starts Here 🏖️",
+        subtitle: "Split gas, share good music, explore more",
+        passNo: "PASS NO. 010",
+        step1: "Tag your weekend road trip crew",
+        step2: "Follow <b>@weshareapp</b>",
+        step3: "Save this post for your next trip",
+        prize: "🎁 TODAY: $20 GAS VOUCHER",
+        photoCaption: "GOLDEN HOUR",
+        icon: "compass"
+      },
+      {
+        id: 11,
+        name: "WeShare-Bonus-TerracottaRust",
+        svgName: "Bonus-TerracottaRust.svg",
+        label: "11 // TERRACOTTA RUST",
+        desc: "70s Clay & Earth",
+        bg: "#BC4B28",
+        isLight: false,
+        ticketColor: "#7C2D12",
+        dayBadge: "★ CAMPUS COMMUTE ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#BC4B28",
+        tag: "🍂 VINTAGE CARPOOL",
+        title: "Campus Rides Made<br/>Simple & Cheap 🚗",
+        subtitle: "Split the cost • Skip the parking headache",
+        passNo: "PASS NO. 011",
+        step1: "Find your college ride group in WeShare",
+        step2: "Book your seat in 2 taps",
+        step3: "Tag a classmate looking for a ride 👇",
+        prize: "🎁 TODAY: $15 STARBUCKS CARD",
+        photoCaption: "CAMPUS COMMUTE",
+        icon: "car"
+      },
+      {
+        id: 12,
+        name: "WeShare-Bonus-DustyMauve",
+        svgName: "Bonus-DustyMauve.svg",
+        label: "12 // DUSTY MAUVE",
+        desc: "Muted Aesthetic Lilac",
+        bg: "#6B4C7A",
+        isLight: false,
+        ticketColor: "#581C87",
+        dayBadge: "★ CHILL RIDES ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#6B4C7A",
+        tag: "💜 CHILL COMMUTES",
+        title: "Carpooling Never<br/>Looked This Good ✨",
+        subtitle: "Good tunes, friendly drivers, zero stress",
+        passNo: "PASS NO. 012",
+        step1: "Share your schedule on WeShare",
+        step2: "Get matched with daily student riders",
+        step3: "Comment your lecture start time!",
+        prize: "🎁 TODAY: $15 UBEREATS CODE",
+        photoCaption: "GOOD VIBES",
+        icon: "sparkles"
+      },
+      {
+        id: 13,
+        name: "WeShare-Bonus-RetroSeafoam",
+        svgName: "Bonus-RetroSeafoam.svg",
+        label: "13 // RETRO SEAFOAM",
+        desc: "Vintage Mint Green",
+        bg: "#2D6A4F",
+        isLight: false,
+        ticketColor: "#064E3B",
+        dayBadge: "★ FRESH SEMESTER ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#2D6A4F",
+        tag: "🌿 FRESH START",
+        title: "Fresh Rides For<br/>The New Semester 🌱",
+        subtitle: "Save up to $150 every month on gas",
+        passNo: "PASS NO. 013",
+        step1: "Download the <b>WeShare</b> app",
+        step2: "Verify your student profile",
+        step3: "Get $5 instant welcome credit",
+        prize: "🎁 PERK: $5 INSTANT CREDIT",
+        photoCaption: "SEMESTER FRESH",
+        icon: "leaf"
+      },
+      {
+        id: 14,
+        name: "WeShare-Bonus-MidnightTeal",
+        svgName: "Bonus-MidnightTeal.svg",
+        label: "14 // MIDNIGHT TEAL",
+        desc: "Deep Ocean Marine",
+        bg: "#0F4C5C",
+        isLight: false,
+        ticketColor: "#083344",
+        dayBadge: "★ NIGHT COMMUTE ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#0F4C5C",
+        tag: "🛡️ SAFETY FIRST",
+        title: "Late Night Study?<br/>Safe Rides Home 🌙",
+        subtitle: "Verified university students only",
+        passNo: "PASS NO. 014",
+        step1: "Set your campus pickup point",
+        step2: "Ride with verified classmates",
+        step3: "Tag your late-night study buddy 👇",
+        prize: "🎁 TODAY: $15 DOORDASH CARD",
+        photoCaption: "NIGHT COMMUTE",
+        icon: "shield"
+      },
+      {
+        id: 15,
+        name: "WeShare-Bonus-EspressoBrown",
+        svgName: "Bonus-EspressoBrown.svg",
+        label: "15 // ESPRESSO BROWN",
+        desc: "70s Vinyl & Cafe",
+        bg: "#3D2B1F",
+        isLight: false,
+        ticketColor: "#451A03",
+        dayBadge: "★ MORNING FUEL ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#3D2B1F",
+        tag: "☕ MORNING FUEL",
+        title: "Fuel Up With Coffee<br/>& Cheap Commutes ☕",
+        subtitle: "Never pay full price for parking again",
+        passNo: "PASS NO. 015",
+        step1: "Follow <b>@weshareapp</b>",
+        step2: "Drop your morning coffee order below",
+        step3: "Tag 2 morning lecture survivors 😂",
+        prize: "🎁 TODAY: $15 DUNKIN / COFFEE",
+        photoCaption: "MORNING RUN",
+        icon: "coffee"
+      },
+      {
+        id: 16,
+        name: "WeShare-Bonus-CoastalPeach",
+        svgName: "Bonus-CoastalPeach.svg",
+        label: "16 // COASTAL PEACH",
+        desc: "California Sunset",
+        bg: "#D97059",
+        isLight: false,
+        ticketColor: "#881337",
+        dayBadge: "★ COASTAL CRUISE ★",
+        dayBadgeBg: "#FAF6EE",
+        dayBadgeText: "#D97059",
+        tag: "🌴 COASTAL CRUISE",
+        title: "Weekend Wheels &<br/>Highway Breezes 🌅",
+        subtitle: "Share seats, split tolls, make friends",
+        passNo: "PASS NO. 016",
+        step1: "Post your weekend route in WeShare",
+        step2: "Fill 2 empty seats",
+        step3: "Comment where you're heading this weekend",
+        prize: "🎁 TODAY: $25 FUEL VOUCHER",
+        photoCaption: "WEEKEND TRIP",
+        icon: "sun"
+      },
+      {
+        id: 17,
+        name: "WeShare-Bonus-LightBlue",
+        svgName: "Bonus-LightBlue.svg",
+        label: "17 // LIGHT PASTEL BLUE",
+        desc: "Soft Powder Sky",
+        bg: "#CBE3FB",
+        textColor: "#1E3A8A",
+        isLight: true,
+        ticketColor: "#1E3A8A",
+        dayBadge: "★ EASY COMMUTE ★",
+        dayBadgeBg: "#1E3A8A",
+        dayBadgeText: "#FAF6EE",
+        tag: "🌤️ EASY COMMUTE",
+        title: "Smooth Rides &<br/>Sunny Skies 🚙☀️",
+        subtitle: "Effortless student carpools on campus",
+        passNo: "PASS NO. 017",
+        step1: "Download the <b>WeShare</b> app",
+        step2: "Join your campus ride community",
+        step3: "Tag someone who needs a ride to class!",
+        prize: "🎁 TODAY: $15 STARBUCKS CARD",
+        photoCaption: "CLEAR ROADS",
+        icon: "sun"
+      },
+      {
+        id: 18,
+        name: "WeShare-Bonus-LightPink",
+        svgName: "Bonus-LightPink.svg",
+        label: "18 // LIGHT PASTEL PINK",
+        desc: "Soft Rose Milk",
+        bg: "#FCE0EC",
+        textColor: "#831843",
+        isLight: true,
+        ticketColor: "#831843",
+        dayBadge: "★ PINK VIBES ★",
+        dayBadgeBg: "#831843",
+        dayBadgeText: "#FAF6EE",
+        tag: "💖 PINK VIBES",
+        title: "Sweet Rides &<br/>Great Company 🌸",
+        subtitle: "Good energy only in the passenger seat",
+        passNo: "PASS NO. 018",
+        step1: "Follow <b>@weshareapp</b>",
+        step2: "Like & save this post",
+        step3: "Tag your ride-or-die bestie 👯",
+        prize: "🎁 TODAY: $15 BOBA / SNACK CARD",
+        photoCaption: "SWEET TRIP",
+        icon: "heart"
+      },
+      {
+        id: 19,
+        name: "WeShare-Bonus-LightViolet",
+        svgName: "Bonus-LightViolet.svg",
+        label: "19 // LIGHT PASTEL VIOLET",
+        desc: "Soft Lavender Breeze",
+        bg: "#E8DCF8",
+        textColor: "#4C1D95",
+        isLight: true,
+        ticketColor: "#4C1D95",
+        dayBadge: "★ LAVENDER VIBES ★",
+        dayBadgeBg: "#4C1D95",
+        dayBadgeText: "#FAF6EE",
+        tag: "🔮 LAVENDER VIBES",
+        title: "Dreamy Routes &<br/>Zero Hassle 💜",
+        subtitle: "Split gas and relax on your daily commute",
+        passNo: "PASS NO. 019",
+        step1: "Book a seat or post a trip on WeShare",
+        step2: "Comment your dream destination",
+        step3: "Tag 2 friends you'd bring along 👇",
+        prize: "🎁 TODAY: $15 TARGET CARD",
+        photoCaption: "DREAM ROUTE",
+        icon: "sparkles"
+      }
+    ];
+
+    const container = document.getElementById('cards-container');
+
+    cardData.forEach(c => {
+      const textColor = c.isLight ? 'text-stone-950' : 'text-white';
+      const themeClass = c.isLight ? 'light-theme' : '';
+      const borderCol = c.isLight ? 'border-4 border-stone-400/30' : 'border-4 border-[#FAF6EE]/25';
+
+      const cardHtml = `
+      <div class="flex flex-col items-center gap-4 w-full max-w-[432px]">
+        
+        <!-- Header Label -->
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-stone-600 font-mono">
+          <span style="color: ${c.bg === '#FAF6EE' ? '#1C1917' : c.bg}">${c.label}</span>
+          <span>${c.desc}</span>
+        </div>
+
+        <!-- 1080x1350 Clean Poster Container (Zero Lower Box) -->
+        <div class="preview-wrapper rounded-3xl overflow-hidden shadow-2xl">
+          <div id="card-${c.id}" class="render-card scaled-card ${textColor} p-16 flex flex-col justify-between items-center text-center ${borderCol} ${themeClass}" style="background-color: ${c.bg};">
+            
+            <!-- Top Header (Editable Day Badge) -->
+            <div class="w-full flex items-center justify-center pt-2">
+              <div class="px-10 py-4 font-mono text-2xl font-bold rounded-full uppercase tracking-wider shadow-lg cursor-text" 
+                   style="background-color: ${c.dayBadgeBg}; color: ${c.dayBadgeText};" 
+                   contenteditable="true">
+                ${c.dayBadge}
+              </div>
+            </div>
+
+            <!-- Central Prominent Polaroid Photo Frame -->
+            <div class="my-auto w-full flex justify-center">
+              <div class="polaroid-frame w-[420px] p-6 pb-10 transform -rotate-1 cursor-pointer ${c.isLight ? 'border border-stone-300' : ''}" onclick="triggerImageUpload(${c.id})">
+                <div class="washi-tape"></div>
+                <input type="file" id="upload-${c.id}" class="hidden" accept="image/*" onchange="previewUploadedImage(event, ${c.id})">
+                <div id="img-container-${c.id}" class="w-full h-80 image-placeholder-box rounded-xl flex flex-col items-center justify-center text-stone-600 p-6 text-center">
+                  <i data-lucide="${c.icon}" class="w-16 h-16 mb-3" style="color: ${c.ticketColor}"></i>
+                  <span class="text-sm font-mono font-bold">CLICK TO INSERT PHOTO</span>
+                  <span class="text-xs text-stone-500 mt-1">or leave clean print placeholder</span>
+                </div>
+                <div class="text-sm font-mono font-bold text-stone-700 text-center mt-4" contenteditable="true">${c.photoCaption}</div>
+              </div>
+            </div>
+
+            <!-- Bottom Open Title & Tag (Clean, Uncluttered) -->
+            <div class="w-full pb-4" contenteditable="true">
+              <span class="inline-block px-6 py-2 rounded-full text-base font-mono uppercase tracking-widest mb-3 font-bold ${c.isLight ? 'bg-black/10 text-stone-900 border border-black/10' : 'bg-black/30 text-stone-200 border border-white/20'}">
+                ${c.tag}
+              </span>
+              <h2 class="text-6xl font-black font-serif leading-tight mb-3">
+                ${c.title}
+              </h2>
+              <p class="text-2xl font-medium opacity-90">${c.subtitle}</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Action Download Buttons -->
+        <div class="flex items-center gap-2 w-full">
+          <button onclick="exportSinglePNG('card-${c.id}', '${c.name}.png')" class="flex-1 py-2.5 px-3 rounded-xl bg-white border border-stone-300 text-stone-800 hover:border-blue-600 hover:text-blue-600 text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-sm">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Export Clean 1080×1350 PNG</span>
+          </button>
+          <a href="/instagram-templates/${c.svgName}" download class="py-2.5 px-3 rounded-xl bg-[#FAF6EE] border border-stone-300 text-stone-700 hover:border-blue-600 text-xs font-mono font-bold flex items-center justify-center gap-1 transition shadow-sm">
+            <span>SVG</span>
+          </a>
+        </div>
+
+        <!-- Website Companion Guide (Kept on Website Outside Image) -->
+        <div class="w-full bg-[#FAF6EE] border border-stone-300 rounded-2xl p-4 text-xs font-medium text-stone-800 shadow-sm">
+          <div class="flex items-center justify-between font-mono font-bold text-stone-900 mb-2 border-b border-stone-200 pb-1.5">
+            <span class="text-blue-800">📋 WEBSITE STEP GUIDE</span>
+            <span class="text-[10px] bg-stone-200 px-2 py-0.5 rounded text-stone-700 font-bold">${c.passNo}</span>
+          </div>
+          <div class="space-y-1 text-stone-700 mb-2.5">
+            <div>1. ${c.step1}</div>
+            <div>2. ${c.step2}</div>
+            <div>3. ${c.step3}</div>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-dashed border-stone-300 text-[11px] font-bold">
+            <span class="text-blue-900">${c.prize}</span>
+            <button onclick="copyCompanionCaption(${c.id})" class="text-blue-600 hover:underline flex items-center gap-1">
+              <span>Copy Caption</span> &rarr;
+            </button>
+          </div>
+        </div>
+
+      </div>
+      `;
+      container.insertAdjacentHTML('beforeend', cardHtml);
+    });
+
+    lucide.createIcons();
+
+    function triggerImageUpload(id) {
+      document.getElementById(`upload-${id}`).click();
+    }
+
+    function previewUploadedImage(event, id) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const container = document.getElementById(`img-container-${id}`);
+          container.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-lg" />`;
+          container.classList.remove('p-6', 'border-3', 'dashed');
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    async function exportSinglePNG(elementId, filename) {
+      const node = document.getElementById(elementId);
+      try {
+        node.classList.remove('scaled-card');
+        const dataUrl = await htmlToImage.toPng(node, {
+          width: 1080,
+          height: 1350,
+          pixelRatio: 1
+        });
+        node.classList.add('scaled-card');
+
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = dataUrl;
+        link.click();
+      } catch (error) {
+        node.classList.add('scaled-card');
+        console.error('Export failed:', error);
+        alert('Export error. Please check browser permissions.');
+      }
+    }
+
+    async function downloadAllPNGs() {
+      for (let i = 1; i <= cardData.length; i++) {
+        const item = cardData[i - 1];
+        await exportSinglePNG(`card-${i}`, `${item.name}.png`);
+        await new Promise(r => setTimeout(r, 400));
+      }
+    }
+
+    function copyCompanionCaption(id) {
+      const item = cardData[id - 1];
+      const cleanTitle = item.title.replace(/<br\s*[\/]?>/gi, ' ');
+      const captionText = `🎉 ${item.dayBadge}: ${cleanTitle}\n\n${item.subtitle}\n\n⚡ TODAY'S PRIZE: ${item.prize}\n\n👉 HOW TO ENTER:\n1. ${item.step1.replace(/<[^>]*>?/gm, '')}\n2. ${item.step2.replace(/<[^>]*>?/gm, '')}\n3. ${item.step3.replace(/<[^>]*>?/gm, '')}\n\nWinner picked tonight at 11:59 PM! Follow @weshareapp for daily drops! 🚗💨\n\n#WeShare #Carpool #StudentGiveaway #CollegeRides #SaveMoney`;
+      
+      navigator.clipboard.writeText(captionText).then(() => {
+        const toast = document.getElementById('toast');
+        toast.innerText = `Caption for #${id} copied!`;
+        toast.classList.remove('opacity-0', 'translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-4');
+          toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 2200);
+      });
+    }
+  </script>
+</body>
+</html>

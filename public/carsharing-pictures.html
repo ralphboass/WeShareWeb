@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeShare Carsharing Pictures (Nice Cars Edition)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html-to-image for crisp 1080x1350 PNG export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 1080x1350 master export container scale down for crisp UI */
+    .render-card {
+      width: 1080px;
+      height: 1350px;
+      position: relative;
+      border-radius: 56px;
+      overflow: hidden;
+      box-sizing: border-box;
+      transform-origin: top left;
+    }
+    .preview-wrapper {
+      width: 432px;
+      height: 540px;
+      position: relative;
+    }
+    .scaled-card {
+      transform: scale(0.4);
+      transform-origin: top left;
+    }
+    .glow-violet {
+      box-shadow: 0 0 50px rgba(124, 58, 237, 0.55);
+    }
+    .glow-blue {
+      box-shadow: 0 0 50px rgba(37, 99, 235, 0.55);
+    }
+    [contenteditable="true"]:hover {
+      outline: 3px dashed rgba(255, 255, 255, 0.6);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-blue-600 selection:text-white">
+
+  <!-- Header Navigation -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl font-black font-serif text-white">
+          <span class="text-blue-500">We</span>Share
+        </span>
+        <span class="text-xs font-bold px-3 py-1 bg-violet-500/20 text-violet-300 border border-violet-500/30 rounded-full">
+          Nice Cars Edition (3 Carsharing Visuals)
+        </span>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-semibold text-slate-400">
+        <a href="/campaign-teaser.html" class="text-violet-400 hover:underline">Teaser Posters &rarr;</a>
+        <span>•</span>
+        <a href="/export-templates.html" class="text-blue-400 hover:underline">19 Daily Templates &rarr;</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <main class="max-w-7xl mx-auto px-6 py-10">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 text-xs font-mono font-bold mb-3">
+        <span>🚗 PREMIUM CARSHARING VISUALS • 1080×1350 HIGH-RES</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black font-serif text-white tracking-tight mb-4">
+        3 Carsharing Pictures with Nice Cars
+      </h1>
+      <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+        High-end automotive carsharing photography tailored with WeShare's Blue & Violet branding, clean typography, and instant 1-click 1080×1350 PNG export.
+      </p>
+    </div>
+
+    <!-- 3 Pictures Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+
+      <!-- ==================== PICTURE 1: SLEEK MODERN ELECTRIC / PREMIUM COMMUTE ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[432px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-400 font-mono">
+          <span class="text-blue-400">PICTURE 01 // MODERN ELECTRIC CAR</span>
+          <span>Campus Pickup</span>
+        </div>
+
+        <div class="preview-wrapper rounded-3xl overflow-hidden shadow-2xl">
+          <div id="car-1" class="render-card scaled-card p-16 flex flex-col justify-between items-center text-center bg-cover bg-center border-4 border-blue-500/40"
+               style="background-image: linear-gradient(180deg, rgba(15,23,42,0.45) 0%, rgba(30,27,75,0.7) 50%, rgba(15,10,35,0.95) 100%), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85');">
+            
+            <!-- Top Tag Pill -->
+            <div class="w-full flex items-center justify-between">
+              <div class="px-8 py-3.5 bg-white/15 backdrop-blur-md rounded-full border border-white/25 text-white font-mono text-xl font-bold shadow-lg">
+                ⚡ ELECTRIC & COMFORT
+              </div>
+              <div class="px-8 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-mono text-xl font-black rounded-full uppercase tracking-wider glow-blue">
+                $100 CHALLENGE
+              </div>
+            </div>
+
+            <!-- Hero Headline -->
+            <div class="w-full my-auto text-center" contenteditable="true">
+              <span class="inline-block px-7 py-2.5 bg-blue-600 text-white rounded-full font-mono text-base font-black uppercase tracking-widest mb-6 shadow-xl">
+                🚗 PREMIUM CAMPUS RIDES
+              </span>
+              <h2 class="text-7xl font-black font-serif text-white leading-tight mb-6 drop-shadow-2xl">
+                RIDE IN STYLE,<br/>PAY UP TO 75% LESS 💨
+              </h2>
+              <p class="text-blue-200 text-3xl font-semibold max-w-2xl mx-auto drop-shadow-md">
+                Split fuel in clean, verified student cars.
+              </p>
+            </div>
+
+            <!-- Bottom Sub-Badge -->
+            <div class="w-full flex justify-center pb-4" contenteditable="true">
+              <div class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-slate-200 text-lg font-mono font-bold">
+                ★ 7 DAYS OF DROPS // WIN $100 CASH
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 w-full">
+          <button onclick="exportSinglePNG('car-1', 'Carsharing-01-ModernElectric.png')" class="flex-1 py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black flex items-center justify-center gap-1.5 transition shadow-md">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Export 1080×1350 PNG</span>
+          </button>
+          <button onclick="copyPrompt(1)" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-mono font-bold flex items-center justify-center gap-1 transition">
+            <span>🎨 AI Prompt</span>
+          </button>
+        </div>
+      </div>
+
+
+      <!-- ==================== PICTURE 2: COASTAL ROAD TRIP / SLEEK SPORTS CABRIOLET ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[432px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-400 font-mono">
+          <span class="text-violet-400">PICTURE 02 // COASTAL OVERLOOK</span>
+          <span>Sunset Sports Car</span>
+        </div>
+
+        <div class="preview-wrapper rounded-3xl overflow-hidden shadow-2xl">
+          <div id="car-2" class="render-card scaled-card p-16 flex flex-col justify-between items-center text-center bg-cover bg-center border-4 border-violet-500/40"
+               style="background-image: linear-gradient(180deg, rgba(15,23,42,0.45) 0%, rgba(49,46,129,0.72) 50%, rgba(15,10,35,0.95) 100%), url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85');">
+            
+            <!-- Top Tag Pill -->
+            <div class="w-full flex items-center justify-between">
+              <div class="px-8 py-3.5 bg-white/15 backdrop-blur-md rounded-full border border-white/25 text-white font-mono text-xl font-bold shadow-lg">
+                ★ 7-DAY ROADTRIP EVENT ★
+              </div>
+              <div class="px-8 py-3.5 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white font-mono text-xl font-black rounded-full uppercase tracking-wider glow-violet">
+                WIN $100 CASH
+              </div>
+            </div>
+
+            <!-- Hero Headline -->
+            <div class="w-full my-auto text-center" contenteditable="true">
+              <span class="inline-block px-7 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full font-mono text-base font-black uppercase tracking-widest mb-6 shadow-xl">
+                🛣️ HIGHWAY ESCAPES
+              </span>
+              <h2 class="text-7xl font-black font-serif text-white leading-tight mb-6 drop-shadow-2xl">
+                YOUR NEXT ROAD TRIP<br/>JUST GOT AN<br/>UPGRADE 🏎️✨
+              </h2>
+              <p class="text-violet-200 text-3xl font-semibold max-w-2xl mx-auto drop-shadow-md">
+                Split gas, share great music & make memories.
+              </p>
+            </div>
+
+            <!-- Bottom Sub-Badge -->
+            <div class="w-full flex justify-center pb-4" contenteditable="true">
+              <div class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-slate-200 text-lg font-mono font-bold">
+                🏆 GRAND DRAW ON INSTAGRAM LIVE
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 w-full">
+          <button onclick="exportSinglePNG('car-2', 'Carsharing-02-CoastalSportsCar.png')" class="flex-1 py-2.5 px-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-black flex items-center justify-center gap-1.5 transition shadow-md">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Export 1080×1350 PNG</span>
+          </button>
+          <button onclick="copyPrompt(2)" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-mono font-bold flex items-center justify-center gap-1 transition">
+            <span>🎨 AI Prompt</span>
+          </button>
+        </div>
+      </div>
+
+
+      <!-- ==================== PICTURE 3: GOLDEN HOUR SUV / HATCHBACK TAILGATE ==================== -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-[432px]">
+        <div class="flex items-center justify-between w-full px-2 text-xs font-bold text-slate-400 font-mono">
+          <span class="text-indigo-400">PICTURE 03 // LUXURY SUV TAILGATE</span>
+          <span>Golden Hour Friends</span>
+        </div>
+
+        <div class="preview-wrapper rounded-3xl overflow-hidden shadow-2xl">
+          <div id="car-3" class="render-card scaled-card p-16 flex flex-col justify-between items-center text-center bg-cover bg-center border-4 border-indigo-500/40"
+               style="background-image: linear-gradient(180deg, rgba(15,23,42,0.45) 0%, rgba(30,27,75,0.75) 50%, rgba(15,10,35,0.95) 100%), url('https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=1200&q=85');">
+            
+            <!-- Top Tag Pill -->
+            <div class="w-full flex items-center justify-between">
+              <div class="px-8 py-3.5 bg-white/15 backdrop-blur-md rounded-full border border-white/25 text-white font-mono text-xl font-bold shadow-lg">
+                🚗 WEEKEND WHEELS
+              </div>
+              <div class="px-8 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-mono text-xl font-black rounded-full uppercase tracking-wider glow-blue">
+                $100 GRAND PRIZE
+              </div>
+            </div>
+
+            <!-- Hero Headline -->
+            <div class="w-full my-auto text-center" contenteditable="true">
+              <span class="inline-block px-7 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-mono text-base font-black uppercase tracking-widest mb-6 shadow-xl">
+                🎉 HOP IN WITH WESHARE
+              </span>
+              <h2 class="text-7xl font-black font-serif text-white leading-tight mb-6 drop-shadow-2xl">
+                FILL AN EMPTY SEAT,<br/>WIN $100 FOR<br/>THE SEMESTER 🎒
+              </h2>
+              <p class="text-indigo-200 text-3xl font-semibold max-w-2xl mx-auto drop-shadow-md">
+                1 task a day. Free rides & daily drops all week.
+              </p>
+            </div>
+
+            <!-- Bottom Sub-Badge -->
+            <div class="w-full flex justify-center pb-4" contenteditable="true">
+              <div class="px-8 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-slate-200 text-lg font-mono font-bold">
+                🔔 TURN ON NOTIFICATIONS // DAY 1 STARTS NOW
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 w-full">
+          <button onclick="exportSinglePNG('car-3', 'Carsharing-03-LuxurySUVTailgate.png')" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black flex items-center justify-center gap-1.5 transition shadow-md">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Export 1080×1350 PNG</span>
+          </button>
+          <button onclick="copyPrompt(3)" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-mono font-bold flex items-center justify-center gap-1 transition">
+            <span>🎨 AI Prompt</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-violet-600 text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-2xl transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-50">
+    Copied to clipboard!
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const prompts = {
+      1: `Cinematic photography of a stylish sleek modern electric car (metallic midnight blue) parked at a university campus pickup zone during golden hour, smiling college students with stylish backpacks entering the car, soft sunset lens flare, premium car aesthetic, crisp 35mm film look, depth of field, shot on Sony A7IV 85mm f/1.4 --ar 4:5 --stylize 250`,
+      2: `Cinematic road trip photography: a sleek sports car / cabriolet parked at a scenic mountain overlook highway at sunset with ocean view, young friends drinking coffee and smiling next to the car, warm golden and deep violet twilight tones, editorial car magazine look --ar 4:5 --stylize 300`,
+      3: `Aesthetic golden hour tailgate photography: three happy college friends sitting in the open hatchback of a modern luxury SUV overlooking a city skyline at dusk, cozy road trip vibes, string lights, warm laughter, cinematic lighting, 35mm film photography --ar 4:5 --stylize 250`
+    };
+
+    function copyPrompt(id) {
+      const text = prompts[id];
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.innerText = `AI Image Prompt #${id} copied to clipboard!`;
+        toast.classList.remove('opacity-0', 'translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-4');
+          toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 2200);
+      });
+    }
+
+    async function exportSinglePNG(elementId, filename) {
+      const node = document.getElementById(elementId);
+      try {
+        node.classList.remove('scaled-card');
+        const dataUrl = await htmlToImage.toPng(node, {
+          width: 1080,
+          height: 1350,
+          pixelRatio: 1
+        });
+        node.classList.add('scaled-card');
+
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = dataUrl;
+        link.click();
+      } catch (error) {
+        node.classList.add('scaled-card');
+        console.error('Export failed:', error);
+        alert('Export error. Please check browser permissions.');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -7,6 +7,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { DemoModeBanner } from "@/components/DemoModeBanner";
 import { EmailVerificationGate } from "@/components/EmailVerificationGate";
+import { InstagramBanner } from "@/components/InstagramBanner";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -21,18 +22,20 @@ export const metadata: Metadata = {
     template: "%s · WeShare",
   },
   description:
-    "WeShare connects UCLA and LA students to share rides. Search rides, book a seat in minutes, and split the cost of the drive.",
+    "Student ride sharing for UCLA, USC, and LA campuses. Find rides, book seats instantly, split costs, and skip the traffic. Safe, verified, and built for students.",
   keywords: [
     "ride sharing",
     "UCLA rides",
+    "USC rides",
     "carpool Los Angeles",
     "student carpool",
     "WeShare",
+    "campus rideshare",
   ],
   openGraph: {
     title: "WeShare Ride — Share the ride, skip the traffic",
     description:
-      "Student ride sharing across Los Angeles. Search rides, book a seat, and split the cost.",
+      "Student ride sharing for UCLA, USC, and LA campuses. Search rides, book a seat, and split the cost.",
     url: "https://weshare-ride.com",
     siteName: "WeShare Ride",
     images: ["/og.svg"],
@@ -44,7 +47,13 @@ export const metadata: Metadata = {
     description: "Share the ride, skip the traffic.",
     images: ["/og.svg"],
   },
-  // Icons come from the app/icon.svg and app/apple-icon.png file conventions.
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -60,6 +69,7 @@ export default function RootLayout({
             <EmailVerificationGate>{children}</EmailVerificationGate>
           </main>
           <Footer />
+          <InstagramBanner />
         </AuthProvider>
         {/* Page views and visitor counts, reported to the Vercel dashboard.
             Self-hosted through /_vercel/insights, so ad blockers that filter

@@ -83,9 +83,9 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-5 max-w-xl text-lg text-ink-soft">
-              WeShare connects students across LA to share rides, reduce costs
-              and beat congestion. Find a seat in minutes, book it online, and
-              get where you&apos;re going together.
+              WeShare connects students at UCLA, USC, and across LA to share
+              rides, reduce costs and beat congestion. Find a seat in minutes,
+              book it online, and get where you&apos;re going together.
             </p>
 
             {/* On phones the app is the better experience, so it leads. */}
@@ -252,64 +252,67 @@ export default function HomePage() {
 
       <section
         id="download"
-        className="bg-gradient-to-b from-white via-brand-50/60 to-white px-5 py-20"
+        className="bg-gradient-to-b from-white via-brand-50/60 to-white px-5 py-24"
       >
         <div className="mx-auto max-w-6xl">
-          <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xl shadow-brand-900/5">
-            <div className="grid md:grid-cols-[1.05fr_0.95fr]">
-              <div className="p-8 sm:p-12">
-                <Badge>
-                  <Smartphone className="size-3.5" />
-                  iOS app
+          <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-2xl shadow-brand-900/10">
+            <div className="grid md:grid-cols-[1.1fr_0.9fr]">
+              <div className="p-10 sm:p-14">
+                <Badge className="text-base">
+                  <Smartphone className="size-4" />
+                  Download the iOS app
                 </Badge>
 
-                <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+                <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
                   Get the full experience
                 </h2>
-                <p className="mt-4 text-ink-soft">
+                <p className="mt-5 text-lg text-ink-soft">
                   Everything on this site works in the app too — plus the extras
                   a browser can&apos;t give you.
                 </p>
 
-                <ul className="mt-7 space-y-3.5">
+                <ul className="mt-8 space-y-4">
                   {appPerks.map((perk) => (
-                    <li key={perk} className="flex items-center gap-3">
-                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-100">
+                    <li key={perk} className="flex items-center gap-3.5">
+                      <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-brand-100">
                         <Check
-                          className="size-3.5 text-brand-700"
+                          className="size-4 text-brand-700"
                           strokeWidth={3}
                         />
                       </span>
-                      <span className="text-sm text-ink-soft">{perk}</span>
+                      <span className="text-base text-ink-soft">{perk}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-10 flex flex-wrap gap-4">
                   <AppStoreButton />
                   <GooglePlayButton />
                 </div>
               </div>
 
               {/* Phone bleeds off the bottom of the gradient panel, with the QR
-                  card positioned to the left of center. */}
-              <div className="relative flex min-h-80 items-center overflow-hidden bg-gradient-to-br from-brand-600 to-purple-600">
+                  card centered in the blue section. */}
+              <div className="relative flex min-h-96 items-center justify-center overflow-hidden bg-gradient-to-br from-brand-600 to-purple-600 p-8">
                 <Image
                   src="/screenshot2.PNG"
                   alt="WeShare ride details screen"
                   width={722}
                   height={1564}
-                  className="absolute -right-2 bottom-[-12%] w-44 rotate-6 rounded-[1.75rem] border-4 border-white/80 shadow-2xl sm:w-52"
+                  className="absolute -right-4 bottom-[-10%] w-48 rotate-6 rounded-[1.75rem] border-4 border-white/80 shadow-2xl sm:w-56"
                 />
 
-                <div className="relative z-10 ml-12 rounded-2xl bg-white p-4 shadow-2xl sm:ml-16">
+                <div className="relative z-10 rounded-2xl bg-white p-5 shadow-2xl">
                   <Image
                     src="/QR.png"
                     alt="QR code to download the WeShare app"
                     width={200}
                     height={200}
-                    className="size-32 rounded-lg sm:size-36"
+                    className="size-36 rounded-lg sm:size-40"
                   />
+                  <p className="mt-3 text-center text-xs font-semibold text-ink-muted">
+                    Scan to download
+                  </p>
                 </div>
               </div>
             </div>
