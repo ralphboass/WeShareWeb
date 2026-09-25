@@ -47,13 +47,6 @@ export const metadata: Metadata = {
     description: "Share the ride, skip the traffic.",
     images: ["/og.svg"],
   },
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
-    ],
-    apple: "/apple-icon.png",
-  },
 };
 
 export default function RootLayout({

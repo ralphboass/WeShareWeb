@@ -77,7 +77,7 @@ export function InstagramBanner() {
                 </div>
                 <p className="mt-2 text-sm text-ink-soft sm:text-base">
                   Join the WeShare community on Instagram for exclusive intro
-                  week challenges, prizes, and updates.
+                  week challenges, prizes, and updates. Join and win among other things a BEATS Bluetooth speaker! 
                 </p>
 
                 <a
@@ -89,7 +89,6 @@ export function InstagramBanner() {
                   }}
                   className="mt-4 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:shadow-xl hover:scale-105"
                 >
-                  <InstagramIcon className="size-4" />
                   @weshareride
                 </a>
               </div>
