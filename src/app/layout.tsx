@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s · WeShare",
   },
   description:
-    "Student ride sharing for UCLA, USC, and LA campuses. Find rides, book seats instantly, split costs, and skip the traffic. Safe, verified, and built for students.",
+    "Student ride sharing across Southern California. Find rides, book seats instantly, split costs, and skip the traffic. Safe, verified, and built for students.",
   keywords: [
     "ride sharing",
     "UCLA rides",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "WeShare Ride — Share the ride, skip the traffic",
     description:
-      "Student ride sharing for UCLA, USC, and LA campuses. Search rides, book a seat, and split the cost.",
+      "Student ride sharing across Southern California. Search rides, book a seat, and split the cost.",
     url: "https://weshare-ride.com",
     siteName: "WeShare Ride",
     images: ["/og.svg"],
