@@ -7,7 +7,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { DemoModeBanner } from "@/components/DemoModeBanner";
 import { EmailVerificationGate } from "@/components/EmailVerificationGate";
-import { InstagramBanner } from "@/components/InstagramBanner";
+// import { InstagramBanner } from "@/components/InstagramBanner";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -62,7 +62,7 @@ export default function RootLayout({
             <EmailVerificationGate>{children}</EmailVerificationGate>
           </main>
           <Footer />
-          <InstagramBanner />
+          {/* <InstagramBanner /> */}
         </AuthProvider>
         {/* Page views and visitor counts, reported to the Vercel dashboard.
             Self-hosted through /_vercel/insights, so ad blockers that filter
