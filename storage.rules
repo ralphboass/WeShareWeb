@@ -1,0 +1,56 @@
+rules_version = '2';
+
+// WeShare Cloud Storage rules.
+// Default is deny: any path not matched below is unreachable from a client.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    // The support/admin account, same uid as in firestore.rules.
+    function isAdmin() {
+      return signedIn() && request.auth.uid == 'Eo6rvvQbmKU1Z2bqmZe5PnSthJR2';
+    }
+
+    function isImageUnder(maxBytes) {
+      return request.resource.contentType.matches('image/(jpeg|jpg|png|heic|heif)')
+             && request.resource.size < maxBytes;
+    }
+
+    // Avatars. Readable by signed-in users so driver/passenger cards render.
+    match /profile_images/{userId}/{fileName} {
+      allow read: if signedIn();
+      allow write: if isOwner(userId) && isImageUnder(10 * 1024 * 1024);
+    }
+
+    // Driver licence and insurance documents.
+    //
+    // Write-only for the driver: they may upload but never read back, so a
+    // compromised account or leaked token cannot be used to exfiltrate identity
+    // documents. Only the admin reviewer can read them.
+    //
+    // Clients must NOT call getDownloadURL() on these objects: a download URL
+    // carries a token that bypasses these rules and would make the image
+    // publicly fetchable by anyone holding the link. Store the Storage path
+    // instead and have the reviewer read it through the Admin SDK.
+    //
+    // Images are deleted by the review Cloud Function once a decision is
+    // recorded, so only the decision and expiry dates are retained.
+    match /verifications/{userId}/{fileName} {
+      allow read: if isAdmin();
+      allow create: if isOwner(userId) && isImageUnder(10 * 1024 * 1024);
+      // Immutable once uploaded; deletion is done by the Admin SDK after review.
+      allow update, delete: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

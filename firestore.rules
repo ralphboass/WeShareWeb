@@ -18,6 +18,10 @@ service cloud.firestore {
       return signedIn() && resource.data[field] == uid();
     }
 
+    function isOwner(userId) {
+      return signedIn() && uid() == userId;
+    }
+
     function creatingOwnField(field) {
       return signedIn() && request.resource.data[field] == uid();
     }
@@ -35,7 +39,13 @@ service cloud.firestore {
     // rendered, but only the owner may write their own document.
     match /users/{userId} {
       allow read: if signedIn();
-      allow create, update: if uid() == userId;
+      // driverVerified is a trust signal shown to passengers, so it is writable
+      // only by the review Cloud Function (Admin SDK) — never by the user it
+      // describes, who would otherwise be able to mark themselves verified.
+      allow create: if uid() == userId
+                    && !('driverVerified' in request.resource.data);
+      allow update: if uid() == userId
+                    && !changedKeys().hasAny(['driverVerified']);
       allow delete: if false;
 
       match /archivedChats/{chatId} {
@@ -119,13 +129,45 @@ service cloud.firestore {
 
     match /rewardCredits/{creditId} {
       allow read, update: if isOwnField('userId');
-      allow create: if creatingOwnField('userId');
+      allow create: if creatingOwnField('userId') || isAdmin();
+      allow delete: if false;
+    }
+
+    // Driver licence / insurance review. Kept out of /users because that
+    // collection is readable by every signed-in user, and this holds identity
+    // data plus the reviewer's notes. The document id is the driver's uid, so a
+    // driver can only ever address their own record.
+    //
+    // The driver submits and may resubmit after a rejection; they can never set
+    // their own status to approved. Only the admin decides, and the resulting
+    // users.driverVerified flag is written by a Cloud Function with the Admin SDK.
+    match /driverVerifications/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      // Only the admin queue lists this collection; a driver reads their own
+      // document directly by id.
+      allow list: if isAdmin();
+
+      allow create: if isOwner(userId)
+                    && request.resource.data.status == 'pending'
+                    && request.resource.data.userId == userId;
+
+      // Resubmission after a rejection only, and only back into 'pending'.
+      allow update: if isOwner(userId)
+                    && resource.data.status == 'rejected'
+                    && request.resource.data.status == 'pending'
+                    && request.resource.data.userId == userId
+                    && !changedKeys().hasAny(['reviewedAt', 'reviewedBy', 'rejectionReason']);
+
+      // Approve / reject.
+      allow update: if isAdmin()
+                    && request.resource.data.status in ['approved', 'rejected'];
+
       allow delete: if false;
     }
 
     match /creditTransactions/{transactionId} {
       allow read: if isOwnField('userId');
-      allow create: if creatingOwnField('userId');
+      allow create: if creatingOwnField('userId') || isAdmin();
       allow update, delete: if false;
     }
 
@@ -140,20 +182,30 @@ service cloud.firestore {
       allow create: if creatingOwnField('userId');
       allow update, delete: if false;
     }
+    
+    match /userVouchers/{assignmentId} {
+      allow read: if isOwnField('userId');
+      allow create: if isAdmin();
+      allow update: if isAdmin() || isOwnField('userId');
+      allow delete: if false;
+    }
 
     // Voucher definitions are managed from the console, never by clients — except
     // the single-use welcome voucher a client mints when redeeming an invite code.
     // That creation is constrained to one use, one user, and a fixed discount so a
     // client cannot write itself an arbitrary coupon.
+    // Admin can create any voucher.
     match /vouchers/{voucherId} {
       allow read: if signedIn();
-      allow create: if signedIn()
-                    && request.resource.data.maxUses == 1
-                    && request.resource.data.usesPerUser == 1
-                    && request.resource.data.discountAmount <= 5
-                    && request.resource.data.code is string
-                    && request.resource.data.code.matches('WELCOME.*');
-      allow update, delete: if false;
+      allow create: if isAdmin()
+                    || (signedIn()
+                        && request.resource.data.maxUses == 1
+                        && request.resource.data.usesPerUser == 1
+                        && request.resource.data.discountAmount <= 5
+                        && request.resource.data.code is string
+                        && request.resource.data.code.matches('WELCOME.*'));
+      allow update: if isAdmin();
+      allow delete: if false;
     }
 
     // Invite-code lookup: readable by any signed-in user so a code can be resolved
