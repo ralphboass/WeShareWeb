@@ -1,35 +1,26 @@
 import { format, isToday, isTomorrow, isSameDay } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 import { enUS } from "date-fns/locale";
 
-// Detect if user is in US based on browser locale
-const isUSLocale = () => {
-  if (typeof navigator === "undefined") return false;
-  const locale = navigator.language || "en-US";
-  return locale.startsWith("en-US") || locale.startsWith("en-");
-};
+// Always use Los Angeles timezone and US format
+const LA_TIMEZONE = "America/Los_Angeles";
 
 export const formatRideDate = (date: Date) => 
-  isUSLocale() 
-    ? format(date, "MMM d, yyyy", { locale: enUS }) 
-    : format(date, "d. MMM yyyy");
+  formatInTimeZone(date, LA_TIMEZONE, "MMM d, yyyy", { locale: enUS });
 
 export const formatRideTime = (time: Date) => 
-  isUSLocale() 
-    ? format(time, "h:mm a", { locale: enUS }) 
-    : format(time, "HH:mm");
+  formatInTimeZone(time, LA_TIMEZONE, "h:mm a", { locale: enUS });
 
 export const formatDayHeading = (date: Date) => {
   if (isToday(date)) return "Today";
   if (isTomorrow(date)) return "Tomorrow";
-  return isUSLocale()
-    ? format(date, "EEEE, MMMM d", { locale: enUS })
-    : format(date, "EEEE, d MMMM");
+  return formatInTimeZone(date, LA_TIMEZONE, "EEEE, MMMM d", { locale: enUS });
 };
 
 export const formatMessageTime = (date: Date) =>
   isSameDay(date, new Date()) 
-    ? (isUSLocale() ? format(date, "h:mm a", { locale: enUS }) : format(date, "HH:mm"))
-    : (isUSLocale() ? format(date, "MMM d", { locale: enUS }) : format(date, "d MMM"));
+    ? formatInTimeZone(date, LA_TIMEZONE, "h:mm a", { locale: enUS })
+    : formatInTimeZone(date, LA_TIMEZONE, "MMM d", { locale: enUS });
 
 export const formatMemberSince = (date: Date) => format(date, "MMMM yyyy");
 
