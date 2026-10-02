@@ -35,6 +35,14 @@ const features = [
   },
 ];
 
+const stats = [
+  { value: "400+", label: "Students on WeShare" },
+  { value: "700+", label: "Rides shared" },
+  { value: "Since 2025", label: "Connecting LA students" },
+];
+
+const campuses = ["UCLA", "USC", "UCSB", "UCSD"];
+
 const steps = [
   {
     title: "Search a route",
@@ -83,9 +91,9 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-5 max-w-xl text-lg text-ink-soft">
-              WeShare connects students at UCLA, USC, and across LA to share
-              rides, reduce costs and beat congestion. Find a seat in minutes,
-              book it online, and get where you&apos;re going together.
+              WeShare connects students across LA and Southern California to
+              share rides, reduce costs and beat congestion. Find a seat in
+              minutes, book it online, and get where you&apos;re going together.
             </p>
 
             {/* On phones the app is the better experience, so it leads. */}
@@ -127,6 +135,18 @@ export default function HomePage() {
                   iOS app
                 </a>
               </p>
+            </div>
+
+            <div className="mt-9 flex flex-wrap items-center gap-2">
+              <span className="text-sm text-ink-muted">Students from</span>
+              {campuses.map((campus) => (
+                <span
+                  key={campus}
+                  className="rounded-full border border-brand-100 bg-white/70 px-3 py-1 text-xs font-bold tracking-wide text-brand-700"
+                >
+                  {campus}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -193,6 +213,22 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="bg-white">
+        <dl className="mx-auto grid max-w-4xl grid-cols-3 gap-4 px-5 py-10">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <dt className="sr-only">{stat.label}</dt>
+              <dd className="wordmark-we text-2xl font-extrabold tracking-tight sm:text-4xl">
+                {stat.value}
+              </dd>
+              <dd className="mt-0.5 text-xs font-medium text-ink-muted sm:text-sm">
+                {stat.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <section className="bg-white py-16">

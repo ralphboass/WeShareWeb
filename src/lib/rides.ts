@@ -73,12 +73,37 @@ export function subscribeToRides(
     onRides(demoRides());
     return () => {};
   }
-  const ridesQuery = query(collection(getDb(), "rides"), orderBy("date", "asc"));
-  return onSnapshot(
-    ridesQuery,
-    (snapshot) => onRides(snapshot.docs.map(rideFromDoc)),
-    (error) => onError?.(error),
+  // Callers only show upcoming rides, so skip the ever-growing history. `date`
+  // is stored as local midnight; starting from yesterday keeps today's rides
+  // and absorbs timezone differences. filterRides drops anything already gone.
+  const since = new Date();
+  since.setDate(since.getDate() - 1);
+  since.setHours(0, 0, 0, 0);
+  const ridesQuery = query(
+    collection(getDb(), "rides"),
+    where("date", ">=", Timestamp.fromDate(since)),
+    orderBy("date", "asc"),
   );
+
+  let delivered = false;
+  const deliver = (snapshot: { docs: QueryDocumentSnapshot<DocumentData>[] }) => {
+    delivered = true;
+    onRides(snapshot.docs.map(rideFromDoc));
+  };
+  // The realtime stream occasionally stalls on some networks. A one-shot fetch
+  // makes sure the list still appears; live updates resume once it connects.
+  const fallback = setTimeout(() => {
+    if (!delivered) {
+      getDocs(ridesQuery)
+        .then((snapshot) => !delivered && deliver(snapshot))
+        .catch((error) => onError?.(error));
+    }
+  }, 5000);
+  const unsubscribe = onSnapshot(ridesQuery, deliver, (error) => onError?.(error));
+  return () => {
+    clearTimeout(fallback);
+    unsubscribe();
+  };
 }
 
 export async function fetchRide(rideId: string): Promise<Ride | null> {
