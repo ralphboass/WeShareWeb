@@ -47,6 +47,11 @@ export function Footer() {
           <p className="mb-3 font-semibold text-ink">Company</p>
           <ul className="space-y-2 text-ink-muted">
             <li>
+              <Link href="/about" className="hover:text-brand-600">
+                About
+              </Link>
+            </li>
+            <li>
               <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-brand-600">
                 Contact us
               </a>
